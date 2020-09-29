@@ -1,0 +1,73 @@
+.container {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 1;
+}
+
+.input {
+    width: 600px;
+    height: 50px;
+    padding: 12px 20px 8px;
+    font-family: Helvetica, Arial, sans-serif;
+    color: #222;
+    font-weight: 300;
+    font-size: 17px;
+    letter-spacing: -0.2px;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 2px 6px rgb(0, 0, 0, 0.15);
+}
+
+.inputFocused {
+    outline: none;
+}
+
+.inputOpen {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.suggestionsContainer {
+    display: none;
+}
+
+.suggestionsContainerOpen {
+    display: block;
+    position: absolute;
+    top: 50px;
+    width: 600px;
+    border: none;
+    background-color: #fff;
+    font-family: Helvetica, Arial, sans-serif;
+    letter-spacing: -0.2px;
+    font-weight: 300;
+    font-size: 17px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    z-index: 2;
+    overflow-y: auto;
+    max-height: 400px;
+    box-shadow: 0 6px 6px rgb(0, 0, 0, 0.15);
+}
+
+.suggestionsList {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.suggestion {
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+.suggestionHighlighted {
+    background-color: #eee;
+}
+
+.suggestionMatch {
+    color: red;
+    font-weight: bold;
+}
