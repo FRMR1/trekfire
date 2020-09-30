@@ -78,7 +78,7 @@ const Component = (props) => {
                     return null;
                 }
             case "FREE_TIME":
-                return `${props.startLocation.name}${renderTimePeriod(
+                return `${props.startLocation.name} ${renderTimePeriod(
                     props.timePeriod
                 )}`;
         }

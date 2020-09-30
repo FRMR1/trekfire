@@ -23,6 +23,8 @@ const Home = (props) => {
         width: 10px !important;
     `;
 
+    console.log("state", props.state);
+
     const { data, loading, error } = useQuery(GET_TOURS);
     const { tours, setTours } = useContext(Context);
 
@@ -30,7 +32,7 @@ const Home = (props) => {
         return (
             <HomeContainer>
                 <Logo />
-                <SearchBar tourData={data} theme={"home"} loading={true} />
+                <SearchBar tourData={tours} theme={"home"} loading={true} />
             </HomeContainer>
         );
 
@@ -41,7 +43,7 @@ const Home = (props) => {
     return (
         <HomeContainer>
             <Logo />
-            <SearchBar tourData={data} theme={"home"} />
+            <SearchBar tourData={tours} theme={"home"} />
         </HomeContainer>
     );
 };

@@ -10,7 +10,7 @@ class DirectionsAPI extends RESTDataSource {
         try {
             const routesPromises = coordsArr.map((route) =>
                 this.get(
-                    `driving/${route}?alternatives=true&geometries=geojson&steps=true&access_token=pk.eyJ1IjoidGhlYmVhdDQyIiwiYSI6ImNrZDdyeTc1MzA1ankydXFhNjV0djZmeW8ifQ.Zdigb6-Plm4-4eGQ0ytngQ`
+                    `driving/${route}?alternatives=true&geometries=geojson&steps=true&access_token=${process.env.NEXT_PUBLIC_MAPBOX_TOKEN}`
                 )
             );
             const routes = await Promise.all(routesPromises);

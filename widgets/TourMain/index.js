@@ -6,8 +6,6 @@ const MainContainer = styled.div`
     margin-top: 70px;
     flex-direction: row;
     display: flex;
-    // overflow: hidden;
-    // width: 100%;
 `;
 
 const DescContainer = styled.div`
