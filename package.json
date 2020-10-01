@@ -28,7 +28,8 @@
         "react-redux": "^7.2.1",
         "react-tabs": "^3.1.1",
         "redux": "^4.0.5",
-        "styled-components": "^5.2.0"
+        "styled-components": "^5.2.0",
+        "theme-ui": "^0.3.1"
     },
     "devDependencies": {
         "babel-jest": "^26.3.0",

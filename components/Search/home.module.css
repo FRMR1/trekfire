@@ -1,9 +1,8 @@
 .container {
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, 0);
+    position: relative;
+    top: 25%;
     z-index: 1;
+    text-align: center;
 }
 
 .input {
@@ -11,13 +10,18 @@
     height: 50px;
     padding: 12px 20px 8px;
     font-family: Helvetica, Arial, sans-serif;
-    color: #222;
+    color: #ff5c6e;
+    background-color: #2e2e2e;
     font-weight: 300;
     font-size: 17px;
     letter-spacing: -0.2px;
     border: none;
     border-radius: 25px;
-    box-shadow: 0 2px 6px rgb(0, 0, 0, 0.15);
+    box-shadow: 0 2px 6px rgb(0, 0, 0, 0.3);
+}
+
+.input::placeholder {
+    opacity: 0.8;
 }
 
 .inputFocused {
@@ -37,9 +41,13 @@
     display: block;
     position: absolute;
     top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 600px;
+    text-align: left;
     border: none;
-    background-color: #fff;
+    color: #ff5c6e;
+    background-color: #2e2e2e;
     font-family: Helvetica, Arial, sans-serif;
     letter-spacing: -0.2px;
     font-weight: 300;
@@ -48,8 +56,8 @@
     border-bottom-right-radius: 25px;
     z-index: 2;
     overflow-y: auto;
-    max-height: 400px;
-    box-shadow: 0 6px 6px rgb(0, 0, 0, 0.15);
+    max-height: 250px;
+    box-shadow: 0 6px 6px rgb(0, 0, 0, 0.2);
 }
 
 .suggestionsList {
@@ -64,7 +72,8 @@
 }
 
 .suggestionHighlighted {
-    background-color: #eee;
+    background-color: #ff5c6e;
+    color: #2e2e2e;
 }
 
 .suggestionMatch {

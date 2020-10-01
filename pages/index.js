@@ -23,7 +23,14 @@ const Home = (props) => {
         width: 10px !important;
     `;
 
-    console.log("state", props.state);
+    const HomeH2 = styled.h2`
+        color: #ff5c6e;
+        position: relative;
+        top: 25%;
+        text-align: center;
+        font-size: 35px;
+        font-family: "NeoTech";
+    `;
 
     const { data, loading, error } = useQuery(GET_TOURS);
     const { tours, setTours } = useContext(Context);
@@ -32,6 +39,7 @@ const Home = (props) => {
         return (
             <HomeContainer>
                 <Logo />
+                <HomeH2>Your next adventure begins here.</HomeH2>
                 <SearchBar tourData={tours} theme={"home"} loading={true} />
             </HomeContainer>
         );
@@ -43,6 +51,7 @@ const Home = (props) => {
     return (
         <HomeContainer>
             <Logo />
+            <HomeH2>Your next adventure begins here.</HomeH2>
             <SearchBar tourData={tours} theme={"home"} />
         </HomeContainer>
     );

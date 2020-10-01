@@ -3,11 +3,13 @@ import App from "next/app";
 import Head from "next/head";
 import Aux from "../hoc/Aux";
 import { withRouter } from "next/router";
+import { ThemeProvider } from "theme-ui";
 import ContextProvider from "../context/context";
 import NProgress from "nprogress";
 import "../styles/globals.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Loading from "../widgets/Loading";
+import { lightTheme, darkTheme } from "../lib/theme";
 
 class Trekfire extends App {
     state = {
@@ -39,9 +41,11 @@ class Trekfire extends App {
                     <title>Trekfire</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
-                <ContextProvider>
-                    {isLoading ? <Loading /> : <Component {...pageProps} />}
-                </ContextProvider>
+                <ThemeProvider>
+                    <ContextProvider>
+                        {isLoading ? <Loading /> : <Component {...pageProps} />}
+                    </ContextProvider>
+                </ThemeProvider>
             </Aux>
         );
     }
