@@ -19,4 +19,4 @@ Trekfire is an open-source project which uses [G Adventures API](https://develop
 
 Reach out to me at:
 
--   <a href="http://twitter.com/frmr_" target="_blank">`@frmr`</a>
+-   Twitter: <a href="http://twitter.com/frmr_" target="_blank">`@frmr`</a>
