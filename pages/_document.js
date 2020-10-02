@@ -1,22 +1,18 @@
-import Document, { Main, NextScript } from "next/document";
-import { InitializeColorMode } from "theme-ui";
+import Document, { Html, Head, Main, NextScript } from "next/document";
 
-export default class extends Document {
-    static async getInitialProps(ctx) {
-        const initialProps = await Document.getInitialProps(ctx);
-        return { ...initialProps };
-    }
-
+class MyDocument extends Document {
     render() {
-        // Replace html lang attribute value with your language.
         return (
-            <html lang="en">
+            <Html lang="en">
+                <Head />
                 <body>
-                    <InitializeColorMode />
+                    <script src="noflash.js" />
                     <Main />
                     <NextScript />
                 </body>
-            </html>
+            </Html>
         );
     }
 }
+
+export default MyDocument;

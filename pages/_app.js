@@ -2,14 +2,13 @@ import React from "react";
 import App from "next/app";
 import Head from "next/head";
 import Aux from "../hoc/Aux";
-import { withRouter } from "next/router";
-import { ThemeProvider } from "theme-ui";
-import ContextProvider from "../context/context";
+import Loading from "../widgets/Loading";
 import NProgress from "nprogress";
+import ContextProvider from "../context/context";
+import Providers from "../util/providers";
+import { withRouter } from "next/router";
 import "../styles/globals.css";
 import "mapbox-gl/dist/mapbox-gl.css";
-import Loading from "../widgets/Loading";
-import { lightTheme, darkTheme } from "../lib/theme";
 
 class Trekfire extends App {
     state = {
@@ -41,11 +40,11 @@ class Trekfire extends App {
                     <title>Trekfire</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
-                <ThemeProvider>
-                    <ContextProvider>
+                <ContextProvider>
+                    <Providers>
                         {isLoading ? <Loading /> : <Component {...pageProps} />}
-                    </ContextProvider>
-                </ThemeProvider>
+                    </Providers>
+                </ContextProvider>
             </Aux>
         );
     }

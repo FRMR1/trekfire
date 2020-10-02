@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { withApollo } from "../lib/apollo";
+import { withApollo } from "../util/apollo";
 import { useQuery } from "@apollo/client";
 import styled from "styled-components";
 import Search from "../components/Search";
-import { GET_TOURS } from "../lib/gql";
+import { GET_TOURS } from "../util/gql";
 import Logo from "../components/Logo";
 import { Context } from "../context/context";
 
@@ -52,7 +52,7 @@ const Home = (props) => {
         <HomeContainer>
             <Logo />
             <HomeH2>Your next adventure begins here.</HomeH2>
-            <SearchBar tourData={tours} theme={"home"} />
+            <SearchBar tourData={tours} home={true} />
         </HomeContainer>
     );
 };

@@ -22,6 +22,21 @@ body {
         Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     color: #525252;
     background-color: #fff;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode {
+    background-color: #222;
+    color: #555;
+    transition: all 0.3s ease;
+}
+
+::selection {
+    background: #ff5c6e;
+}
+
+::-moz-selection {
+    background: #ff5c6e; /* Gecko Browsers */
 }
 
 ul {
@@ -73,10 +88,23 @@ a {
     width: 100%;
     text-align: left;
     border: none;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .accordion__button {
+    background-color: #262626;
+    color: #555;
+    transition: all 0.3s ease;
 }
 
 .accordion__button:hover {
+    transition: all 0.3s ease;
     background-color: #ddd;
+}
+
+body.dark-mode .accordion__button:hover {
+    background-color: #282828;
+    transition: all 0.3s ease;
 }
 
 .accordion__button:before {
@@ -88,6 +116,12 @@ a {
     border-bottom: 1px solid currentColor;
     border-right: 1px solid currentColor;
     transform: rotate(-45deg);
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .accordion__button:before {
+    color: #ff5c6e;
+    transition: all 0.3s ease;
 }
 
 .accordion__button[aria-expanded="true"]::before,
@@ -132,6 +166,12 @@ a {
     border-bottom: 1px solid #ddd;
     margin: 0 0 30px;
     padding: 0;
+    transition: all 0.1s ease;
+}
+
+body.dark-mode .react-tabs__tab-list {
+    border-bottom: 1px solid #262626;
+    transition: all 0.1s ease;
 }
 
 .react-tabs__tab {
@@ -147,7 +187,6 @@ a {
 }
 
 .react-tabs__tab--selected {
-    background: #fff;
     border-color: #aaa;
     border-bottom: 3px solid #ff5c6e;
 }
@@ -233,4 +272,200 @@ a {
     -webkit-transform: rotate(3deg) translate(0px, -4px);
     -ms-transform: rotate(3deg) translate(0px, -4px);
     transform: rotate(3deg) translate(0px, -4px);
+}
+
+/**
+* ----------------------------------------------
+* AUTOSUGGEST
+* ----------------------------------------------
+**/
+
+.navbar .react-autosuggest__container {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 1;
+}
+
+.navbar .react-autosuggest__input {
+    width: 440px;
+    height: 40px;
+    padding: 12px 20px 9px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 200;
+    font-size: 14px;
+    letter-spacing: -0.2px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .navbar .react-autosuggest__input {
+    background-color: #262626;
+    box-shadow: 0 0 6px rgb(0, 0, 0, 0.1);
+    border: none;
+    color: #ff5c6e;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .navbar .react-autosuggest__input::placeholder {
+    opacity: 0.8;
+}
+
+.navbar .react-autosuggest__input--focused {
+    outline: none;
+    box-shadow: 0 0 6px rgb(0, 0, 0, 0.1);
+}
+
+body.dark-mode .navbar .react-autosuggest__input--focused {
+    box-shadow: 0 3px 6px rgb(0, 0, 0, 0.2);
+}
+
+.navbar .react-autosuggest__input--open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.navbar .react-autosuggest__suggestions-container {
+    display: none;
+}
+
+.navbar .react-autosuggest__suggestions-container--open {
+    display: block;
+    position: absolute;
+    top: 38px;
+    width: 440px;
+    border: 1px solid #ddd;
+    border-top: none;
+    background-color: #fff;
+    font-family: Helvetica, Arial, sans-serif;
+    letter-spacing: -0.2px;
+    font-weight: 300;
+    font-size: 14px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    z-index: 2;
+    overflow-y: auto;
+    max-height: 400px;
+    box-shadow: 0 3px 6px rgb(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .navbar .react-autosuggest__suggestions-container--open {
+    background-color: #262626;
+    box-shadow: 0 6px 6px rgb(0, 0, 0, 0.1);
+    border: none;
+    color: #ff5c6e;
+    transition: all 0.3s ease;
+}
+
+.navbar .react-autosuggest__suggestions-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.navbar .react-autosuggest__suggestion {
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+.navbar .react-autosuggest__suggestion--highlighted {
+    background-color: #eee;
+}
+
+body.dark-mode .navbar .react-autosuggest__suggestion--highlighted {
+    background-color: #ff5c6e;
+    color: #2e2e2e;
+}
+
+.navbar .suggestionMatch {
+    color: red;
+    font-weight: bold;
+}
+
+/**/
+
+.home {
+    position: relative;
+    top: 25%;
+    z-index: 1;
+    text-align: center;
+}
+
+.home .react-autosuggest__input {
+    width: 600px;
+    height: 50px;
+    padding: 12px 20px 8px;
+    font-family: Helvetica, Arial, sans-serif;
+    color: #ff5c6e;
+    background-color: #2e2e2e;
+    font-weight: 300;
+    font-size: 17px;
+    letter-spacing: -0.2px;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 2px 6px rgb(0, 0, 0, 0.3);
+}
+
+.home .react-autosuggest__input::placeholder {
+    opacity: 0.8;
+}
+
+.home .react-autosuggest__input--focused {
+    outline: none;
+}
+
+.home .react-autosuggest__input--open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.home .react-autosuggest__suggestions-container {
+    display: none;
+}
+
+.home .react-autosuggest__suggestions-container--open {
+    display: block;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    text-align: left;
+    border: none;
+    color: #ff5c6e;
+    background-color: #2e2e2e;
+    font-family: Helvetica, Arial, sans-serif;
+    letter-spacing: -0.2px;
+    font-weight: 300;
+    font-size: 17px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    z-index: 2;
+    overflow-y: auto;
+    max-height: 250px;
+    box-shadow: 0 6px 6px rgb(0, 0, 0, 0.2);
+}
+
+.home .react-autosuggest__suggestions-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.home .react-autosuggest__suggestion {
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+.home .react-autosuggest__suggestion--highlighted {
+    background-color: #ff5c6e;
+    color: #2e2e2e;
+}
+
+.home .suggestionMatch {
+    color: red;
+    font-weight: bold;
 }

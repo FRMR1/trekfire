@@ -25,11 +25,15 @@ const SubH3 = styled.h3`
     text-transform: uppercase;
     font-size: 13px;
     margin-top: 0;
+    transition: color 0.3s ease;
+    color: ${(props) => props.theme.tourSubtitle};
 `;
 
 const TourTitle = styled.h2`
     font-size: 30px;
     margin-bottom: 5px;
+    transition: color 0.3s ease;
+    color: ${(props) => props.theme.heading};
 `;
 
 const TourMain = (props) => {

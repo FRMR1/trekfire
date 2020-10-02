@@ -9,7 +9,7 @@ import {
     GET_MAP_ACTIVITIES,
     GET_MAP_TRANSPORT,
     GET_MAP_ACCOM,
-} from "../../lib/gql";
+} from "../../util/gql";
 import TourMain from "../../widgets/TourMain";
 
 const API_URL = process.env.API_URL;

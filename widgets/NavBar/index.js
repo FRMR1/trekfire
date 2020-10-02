@@ -1,28 +1,26 @@
 import styled from "styled-components";
 import Logo from "../../components/Logo";
 import Search from "../../components/Search";
-import { withApollo } from "../../lib/apollo";
-import UserDropdown from "../../components/UserDropdown";
+import DarkModeToggle from "../../components/DarkModeToggle";
+import { withApollo } from "../../util/apollo";
 import { useQuery } from "@apollo/client";
 import { useContext } from "react";
 import { Context } from "../../context/context";
-import { GET_TOURS } from "../../lib/gql";
-import { markLoadingError } from "next/dist/next-server/lib/router/router";
+import { GET_TOURS } from "../../util/gql";
 
 const NavContainer = styled.div`
     position: fixed;
     top: 0;
+    box-shadow: ${(props) => props.theme.navBarShadow};
     height: 70px;
-    background-color: #fff;
+    background-color: ${(props) => props.theme.background};
+    transition: background-color 0.3s ease;
     width: 100%;
-    box-shadow: 0 2px 10px rgb(0, 0, 0, 0.1);
     z-index: 2;
 `;
 
 const NavBar = (props) => {
     const { tours, setTours } = useContext(Context);
-
-    console.log(tours);
 
     if (!Object.keys(tours).length) {
         const { data, loading, error } = useQuery(GET_TOURS);
@@ -31,8 +29,8 @@ const NavBar = (props) => {
             return (
                 <NavContainer>
                     <Logo />
-                    <Search theme={"navbar"} tourData={tours} loading={true} />
-                    <UserDropdown />
+                    <Search home={false} tourData={tours} loading={true} />
+                    <DarkModeToggle />
                 </NavContainer>
             );
         }
@@ -44,7 +42,7 @@ const NavBar = (props) => {
         <NavContainer>
             <Logo />
             <Search theme={"navbar"} tourData={tours} />
-            <UserDropdown />
+            <DarkModeToggle />
         </NavContainer>
     );
 };

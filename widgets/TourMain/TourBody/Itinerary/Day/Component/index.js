@@ -5,6 +5,7 @@ const MetaSpan = styled.span`
     display: inline;
     float: right;
     font-size: 11px;
+    color: ${(props) => props.theme.componentMeta};
 `;
 
 const SummaryP = styled.p`
@@ -12,10 +13,11 @@ const SummaryP = styled.p`
     margin-top: 25px;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 12px;
+    color: ${(props) => props.theme.componentP};
 `;
 
 const ComponentContainer = styled.div`
-    background-color: #f4f4f4;
+    background-color: ${(props) => props.theme.componentBg};
     padding: 25px;
     margin: 20px 0;
     border-left: 3px solid #ff615e;
@@ -26,6 +28,7 @@ const ComponentH5 = styled.h5`
     display: inline;
     margin: 0;
     font-weight: 500;
+    color: ${(props) => props.theme.componentH5};
 `;
 
 const Component = (props) => {

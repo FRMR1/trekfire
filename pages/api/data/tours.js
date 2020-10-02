@@ -48,11 +48,12 @@ class GAdventuresAPI extends RESTDataSource {
             day.components
                 .filter((component) => component.type === "ACCOMMODATION")
                 .map((component) =>
-                    component.accommodation
+                    component.accommodation_dossier
                         ? component.accommodation_dossier.id
                         : null
                 )
         );
+
         const accomArr = nestedAccomArr.flat(1).filter((el) => el);
 
         // Return array of all accommodation place ID's.

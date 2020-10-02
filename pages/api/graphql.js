@@ -1,7 +1,7 @@
-import { ApolloServer, gql } from 'apollo-server-micro';
-import connectDb from '../../lib/mongoose';
-import GAdventuresAPI from './data/tours';
-import DirectionsAPI from './data/map';
+import { ApolloServer, gql } from "apollo-server-micro";
+import connectDb from "../../util/mongoose";
+import GAdventuresAPI from "./data/tours";
+import DirectionsAPI from "./data/map";
 
 const typeDefs = gql`
     type Query {
@@ -21,7 +21,7 @@ const typeDefs = gql`
         id: ID!
         slug: String!
         name: String!
-        description: String 
+        description: String
         images: [Image]
         details: [Detail]
         categories: [Category]
@@ -147,45 +147,53 @@ const resolvers = {
             return dataSources.GAdventuresAPI.getAllTours();
         },
         tourDossier: (_, { id }, { dataSources }) => {
-            return dataSources.GAdventuresAPI.getTourDossierById({ tourId: id });
+            return dataSources.GAdventuresAPI.getTourDossierById({
+                tourId: id,
+            });
         },
         itinDossier: async (_, { id }, { dataSources }) => {
-            return dataSources.GAdventuresAPI.getItinerary({ itineraryId: id })
+            return dataSources.GAdventuresAPI.getItinerary({ itineraryId: id });
         },
         mapAccom: async (_, { id }, { dataSources }) => {
-            return dataSources.GAdventuresAPI.getMapAccom({ itineraryId: id })
+            return dataSources.GAdventuresAPI.getMapAccom({ itineraryId: id });
         },
         mapActivities: async (_, { id }, { dataSources }) => {
-            return dataSources.GAdventuresAPI.getMapActivities({ itineraryId: id })
+            return dataSources.GAdventuresAPI.getMapActivities({
+                itineraryId: id,
+            });
         },
         mapTransport: async (_, { id }, { dataSources }) => {
-            return dataSources.GAdventuresAPI.getMapTransport({ itineraryId: id })
+            return dataSources.GAdventuresAPI.getMapTransport({
+                itineraryId: id,
+            });
         },
         mapRoutes: async (_, { coords }, { dataSources }) => {
-            return dataSources.DirectionsAPI.getMapRoutes({ coordsArr: coords});
-        }
-    }
+            return dataSources.DirectionsAPI.getMapRoutes({
+                coordsArr: coords,
+            });
+        },
+    },
 };
 
-const apolloServer = new ApolloServer({ 
-    typeDefs, 
+const apolloServer = new ApolloServer({
+    typeDefs,
     resolvers,
     dataSources: () => ({
         GAdventuresAPI: new GAdventuresAPI(),
-        DirectionsAPI: new DirectionsAPI()
+        DirectionsAPI: new DirectionsAPI(),
     }),
-    engine: {    
+    engine: {
         reportSchema: true,
-        variant: "current"
-    }
+        variant: "current",
+    },
 });
 
 export const config = {
     api: {
-        bodyParser: false
-    }
+        bodyParser: false,
+    },
 };
 
-const server = apolloServer.createHandler({ path: '/api/graphql' });
+const server = apolloServer.createHandler({ path: "/api/graphql" });
 
 export default server;

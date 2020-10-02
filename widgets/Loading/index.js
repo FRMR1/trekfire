@@ -39,11 +39,11 @@ const TourTitle = styled.div`
     height: 30px;
     overflow: hidden;
     margin: 55px 0 10px;
-    background-color: #eeeeee;
+    background-color: ${(props) => props.theme.loadingBg};
     border-radius: 5px;
-    background-image: linear-gradient(90deg, #eee 0px, #ddd 200px, #eee 400px);
+    background-image: ${(props) => props.theme.loadingBgImg};
     background-size: 600px;
-    animation: ${loading} 1.5s infinite linear 0.1s;
+    animation: ${loading} 1.5s infinite ease-in-out 1s;
 `;
 
 const SubTitle = styled.div`
@@ -53,11 +53,11 @@ const SubTitle = styled.div`
     height: 18px;
     overflow: hidden;
     margin: 10px 0 10px;
-    background-color: #eeeeee;
+    background-color: ${(props) => props.theme.loadingBg};
     border-radius: 5px;
-    background-image: linear-gradient(90deg, #eee 0px, #ddd 200px, #eee 400px);
+    background-image: ${(props) => props.theme.loadingBgImg};
     background-size: 600px;
-    animation: ${loading} 1.5s infinite linear 0.1s;
+    animation: ${loading} 1.5s infinite ease-in-out 1s;
 `;
 
 const Image = styled.div`
@@ -66,11 +66,11 @@ const Image = styled.div`
     height: 220px;
     overflow: hidden;
     margin: 45px 0 30px;
-    background-color: #eeeeee;
+    background-color: ${(props) => props.theme.loadingBg};
     border-radius: 10px;
-    background-image: linear-gradient(90deg, #eee 0px, #ddd 200px, #eee 400px);
+    background-image: ${(props) => props.theme.loadingBgImg};
     background-size: 600px;
-    animation: ${loading} 1.5s infinite linear 0.1s;
+    animation: ${loading} 1.5s infinite ease-in-out 1s;
 `;
 
 const ParagraphLine = styled.div`
@@ -79,11 +79,11 @@ const ParagraphLine = styled.div`
     overflow: hidden;
     position: relative;
     margin: 8px 0;
-    background-color: #eeeeee;
+    background-color: ${(props) => props.theme.loadingBg};
     border-radius: 5px;
-    background-image: linear-gradient(90deg, #eee 0px, #ddd 200px, #eee 400px);
+    background-image: ${(props) => props.theme.loadingBgImg};
     background-size: 600px;
-    animation: ${loading} 1.5s infinite linear 0.1s;
+    animation: ${loading} 1.5s infinite ease-in-out 1s;
 `;
 
 const InfoTitle = styled.div`
@@ -93,10 +93,10 @@ const InfoTitle = styled.div`
     height: 20px;
     margin: 40px 0 20px;
     border-radius: 5px;
-    background-color: #eeeeee;
-    background-image: linear-gradient(90deg, #eee 0px, #ddd 200px, #eee 400px);
+    background-color: ${(props) => props.theme.loadingBg};
+    background-image: ${(props) => props.theme.loadingBgImg};
     background-size: 600px;
-    animation: ${loading} 1.5s infinite linear 0.1s;
+    animation: ${loading} 1.5s infinite ease-in-out 1s;
 `;
 
 const InfoLine = styled.div`
@@ -106,10 +106,10 @@ const InfoLine = styled.div`
     position: relative;
     margin: 15px 0;
     border-radius: 5px;
-    background-color: #eeeeee;
-    background-image: linear-gradient(90deg, #eee 0px, #ddd 200px, #eee 400px);
+    background-color: ${(props) => props.theme.loadingBg};
+    background-image: ${(props) => props.theme.loadingBgImg};
     background-size: 600px;
-    animation: ${loading} 1.5s infinite linear 0.1s;
+    animation: ${loading} 1.5s infinite ease-in-out 1s;
 `;
 
 const Loading = () => {

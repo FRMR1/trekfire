@@ -15,6 +15,7 @@ const DayP = styled.p`
 
 const DayH4 = styled.h4`
     font-size: 20px;
+    color: ${(props) => props.theme.heading};
 `;
 
 const Day = (props) => {

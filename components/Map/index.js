@@ -21,7 +21,7 @@ const Map = (props) => {
         // Render Mapbox
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
-            style: process.env.NEXT_PUBLIC_MAPBOX_STYLE,
+            style: process.env.NEXT_PUBLIC_MAPBOX_STYLE_DARK,
             scrollZoom: false,
         });
         map.current.addControl(new mapboxgl.NavigationControl());

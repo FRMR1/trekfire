@@ -2,10 +2,10 @@ import React from "react";
 import Autosuggest from "react-autosuggest";
 import { withRouter } from "next/router";
 import home from "./home.module.css";
-import navbar from "./navbar.module.css";
 import createTrie from "autosuggest-trie";
 import { Context } from "../../context/context";
-import { withApollo } from "../../lib/apollo";
+import { withApollo } from "../../util/apollo";
+import styled from "styled-components";
 
 class Search extends React.Component {
     constructor() {
@@ -92,17 +92,22 @@ class Search extends React.Component {
 
         // Finally, render it!
         return (
-            <Autosuggest
-                theme={this.props.theme === "home" ? home : navbar}
-                suggestions={suggestions}
-                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                getSuggestionValue={this.getSuggestionValue}
-                renderSuggestion={this.renderSuggestion}
-                inputProps={inputProps}
-                onSuggestionSelected={this.onSuggestionSelected}
-                focusInputOnSuggestionClick={false}
-            />
+            <div className={this.props.home ? "home" : "navbar"}>
+                <Autosuggest
+                    suggestions={suggestions}
+                    onSuggestionsFetchRequested={
+                        this.onSuggestionsFetchRequested
+                    }
+                    onSuggestionsClearRequested={
+                        this.onSuggestionsClearRequested
+                    }
+                    getSuggestionValue={this.getSuggestionValue}
+                    renderSuggestion={this.renderSuggestion}
+                    inputProps={inputProps}
+                    onSuggestionSelected={this.onSuggestionSelected}
+                    focusInputOnSuggestionClick={false}
+                />
+            </div>
         );
     }
 }
