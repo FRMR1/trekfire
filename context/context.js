@@ -10,7 +10,13 @@ const ContextProvider = (props) => {
 
     return (
         <Context.Provider
-            value={{ tabIndex, setTabIndex, tours, setTours, darkMode }}
+            value={{
+                tabIndex,
+                setTabIndex,
+                tours,
+                setTours,
+                darkMode,
+            }}
         >
             {props.children}
         </Context.Provider>

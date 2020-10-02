@@ -1,5 +1,6 @@
 import mapboxgl from "mapbox-gl";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useContext } from "react";
+import { Context } from "../../context/context";
 import styled from "styled-components";
 
 const MapDiv = styled.div`
@@ -16,6 +17,7 @@ const Map = (props) => {
     const mapContainer = useRef();
     const map = useRef();
     const accomMarkers = useRef([]);
+    const { darkMode } = useContext(Context);
 
     useEffect(() => {
         // Render Mapbox
@@ -57,6 +59,18 @@ const Map = (props) => {
             return;
         }
     }, [props.mapTransport]);
+
+    useEffect(() => {
+        // Switch map style on dark-mode toggle
+        const switchMapStyle = () => {
+            map.current.setStyle(
+                darkMode.value
+                    ? "mapbox://styles/thebeat42/ckd7uxrpc049l1iojjtwphh31"
+                    : "mapbox://styles/thebeat42/ckfr9mrof1g6i19qhrakuab0l"
+            );
+        };
+        switchMapStyle();
+    }, [darkMode.value]);
 
     useEffect(() => {
         // Iterate over mapRoutes and create map layer for all
@@ -106,6 +120,7 @@ const Map = (props) => {
             };
             const jsonString = JSON.stringify(geoJsonObj);
             const jsonObj = JSON.parse(jsonString);
+
             map.current.on("load", () => {
                 if (map.current.getSource("route")) {
                     map.current.removeLayer("route");
@@ -116,8 +131,19 @@ const Map = (props) => {
                     map.current.addLayer(routeLayer);
                 }
             });
+
+            map.current.on("style.load", function () {
+                if (map.current.getSource("route")) {
+                    map.current.removeLayer("route");
+                    map.current.getSource("route").setData(updatedSource);
+                    map.current.addLayer(routeLayer);
+                } else {
+                    map.current.addSource("route", jsonObj);
+                    map.current.addLayer(routeLayer);
+                }
+            });
         }
-    }, [props.mapRoutes]);
+    }, [props.mapRoutes, darkMode.value]);
 
     useEffect(() => {
         // Loop through mapMarkers to create JSON data for all

@@ -54,7 +54,7 @@ const Component = (props) => {
             case "FULL_DAY":
                 return "- Full Day";
             default:
-                return null;
+                return "";
         }
     };
 

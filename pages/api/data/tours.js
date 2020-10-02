@@ -47,21 +47,26 @@ class GAdventuresAPI extends RESTDataSource {
         const nestedAccomArr = response.days.map((day) =>
             day.components
                 .filter((component) => component.type === "ACCOMMODATION")
-                .map((component) =>
-                    component.accommodation_dossier
-                        ? component.accommodation_dossier.id
-                        : null
-                )
+                .filter((component) => component.accommodation_dossier)
+                .map((component) => component.accommodation_dossier.id)
         );
 
+        console.log("NESTED ACCCOM ARRAY", nestedAccomArr);
+
         const accomArr = nestedAccomArr.flat(1).filter((el) => el);
+
+        console.log("FLAT ACCOM ARRAY", accomArr);
 
         // Return array of all accommodation place ID's.
         const accomPromises = accomArr.map((id) =>
             this.get(`accommodation_dossiers/${id}`)
         );
         const accomResolved = await Promise.all(accomPromises);
-        const placeIds = accomResolved.map((accom) => accom.location.id);
+        const placeIds = accomResolved
+            .filter((accom) => accom.location)
+            .map((accom) => accom.location.id);
+
+        console.log("ACCOM RESOLVED", placeIds);
 
         // Return array of all accommodation coordinates.
         const placesPromises = placeIds.map((id) => this.get(`places/${id}`));
