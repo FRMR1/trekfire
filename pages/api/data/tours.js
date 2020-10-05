@@ -14,18 +14,22 @@ class GAdventuresAPI extends RESTDataSource {
     }
 
     async getAllTours() {
-        const allTours = [];
-        const response = await this.get("/tour_dossiers");
-        const totalTours = response.count;
-        const totalPages = Math.ceil(totalTours / response.max_per_page);
-        const promiseArray = [];
-        for (let i = 0; i < totalPages + 1; i++) {
-            promiseArray.push(this.get(`/tour_dossiers?page=${i}`));
-        }
-        let resolvedPromises = await Promise.all(promiseArray);
-        for (let i = 0; i < resolvedPromises.length; i++) {
-            allTours.push(...resolvedPromises[i].results);
-        }
+        // Get total number of tours with pagination
+        const tourDossiers = await this.get("/tour_dossiers");
+        const totalTours = tourDossiers.count;
+        const totalPages = Math.ceil(totalTours / tourDossiers.max_per_page);
+
+        // Create array of all tour dossiers by page
+        const tourDossierPromises = [...Array(totalPages)].map((_, page) => {
+            return this.get(`/tour_dossiers?page=${page}`);
+        });
+        const resolvedTourDossierPages = await Promise.all(tourDossierPromises);
+
+        // Map through pages to get flat array of tour dossier results
+        const allTours = resolvedTourDossierPages.flatMap((page) =>
+            page.results.map((result) => result)
+        );
+
         return Array.isArray(allTours)
             ? allTours.map((tour) => this.tourReducer(tour))
             : [];
@@ -51,11 +55,7 @@ class GAdventuresAPI extends RESTDataSource {
                 .map((component) => component.accommodation_dossier.id)
         );
 
-        console.log("NESTED ACCCOM ARRAY", nestedAccomArr);
-
         const accomArr = nestedAccomArr.flat(1).filter((el) => el);
-
-        console.log("FLAT ACCOM ARRAY", accomArr);
 
         // Return array of all accommodation place ID's.
         const accomPromises = accomArr.map((id) =>
@@ -65,8 +65,6 @@ class GAdventuresAPI extends RESTDataSource {
         const placeIds = accomResolved
             .filter((accom) => accom.location)
             .map((accom) => accom.location.id);
-
-        console.log("ACCOM RESOLVED", placeIds);
 
         // Return array of all accommodation coordinates.
         const placesPromises = placeIds.map((id) => this.get(`places/${id}`));

@@ -39,7 +39,7 @@ const Home = (props) => {
         setTours(data);
     }
 
-    // if (error) return `Error! ${error.message}`;
+    if (error) return `Error! ${error.message}`;
 
     return (
         <HomeContainer>
@@ -50,14 +50,6 @@ const Home = (props) => {
                 home={true}
                 loading={loading ? true : false}
             />
-        </HomeContainer>
-    );
-
-    return (
-        <HomeContainer>
-            <Logo />
-            <HomeH2>Your next adventure begins here.</HomeH2>
-            <SearchBar tourData={tours} home={true} />
         </HomeContainer>
     );
 };

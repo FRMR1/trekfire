@@ -42,8 +42,6 @@ const TourTitle = styled.h2`
 const TourMain = (props) => {
     const { isLoading, setIsLoading } = useContext(LoadingContext);
 
-    console.log(isLoading);
-
     return (
         <MainContainer>
             {isLoading ? (
