@@ -53,7 +53,7 @@ const Map = (props) => {
                     props.mapActivities[0].coordinates[1],
                 ],
                 essential: true,
-                zoom: 8,
+                zoom: 12,
             });
         } else {
             return;

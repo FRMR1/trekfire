@@ -35,18 +35,23 @@ const Home = (props) => {
     const { data, loading, error } = useQuery(GET_TOURS);
     const { tours, setTours } = useContext(Context);
 
-    if (loading)
-        return (
-            <HomeContainer>
-                <Logo />
-                <HomeH2>Your next adventure begins here.</HomeH2>
-                <SearchBar tourData={tours} theme={"home"} loading={true} />
-            </HomeContainer>
-        );
+    if (data) {
+        setTours(data);
+    }
 
-    if (error) return `Error! ${error.message}`;
+    // if (error) return `Error! ${error.message}`;
 
-    setTours(data);
+    return (
+        <HomeContainer>
+            <Logo />
+            <HomeH2>Your next adventure begins here.</HomeH2>
+            <SearchBar
+                tourData={data ? tours : null}
+                home={true}
+                loading={loading ? true : false}
+            />
+        </HomeContainer>
+    );
 
     return (
         <HomeContainer>

@@ -1,14 +1,15 @@
-import React from "react";
+import React, { createContext } from "react";
 import App from "next/app";
 import Head from "next/head";
 import Aux from "../hoc/Aux";
-import Loading from "../widgets/Loading";
 import NProgress from "nprogress";
 import ContextProvider from "../context/context";
-import Providers from "../util/providers";
+import ThemeProvider from "../util/themeProvider";
 import { withRouter } from "next/router";
 import "../styles/globals.css";
 import "mapbox-gl/dist/mapbox-gl.css";
+
+export const LoadingContext = createContext(false);
 
 class Trekfire extends App {
     state = {
@@ -30,9 +31,12 @@ class Trekfire extends App {
         });
     }
 
+    setIsLoading = (isLoading) => {
+        this.setState({ isLoading });
+    };
+
     render() {
         const { Component, pageProps } = this.props;
-        const { isLoading } = this.state;
 
         return (
             <Aux>
@@ -40,11 +44,18 @@ class Trekfire extends App {
                     <title>Trekfire</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
-                <ContextProvider>
-                    <Providers>
-                        {isLoading ? <Loading /> : <Component {...pageProps} />}
-                    </Providers>
-                </ContextProvider>
+                <LoadingContext.Provider
+                    value={{
+                        isLoading: this.state.isLoading,
+                        setIsLoading: this.setIsLoading,
+                    }}
+                >
+                    <ContextProvider>
+                        <ThemeProvider>
+                            <Component {...pageProps} />
+                        </ThemeProvider>
+                    </ContextProvider>
+                </LoadingContext.Provider>
             </Aux>
         );
     }

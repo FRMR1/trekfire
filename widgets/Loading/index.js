@@ -114,29 +114,21 @@ const InfoLine = styled.div`
 
 const Loading = () => {
     return (
-        <Aux>
-            <NavBar />
-            <MainContainer>
-                <DescContainer>
-                    <TourTitle />
-                    <SubTitle />
-                    <Image />
-                    <ParagraphLine />
-                    <ParagraphLine />
-                    <ParagraphLine />
-                    <ParagraphLine />
-                    <ParagraphLine />
-                    <InfoTitle />
-                    <InfoLine />
-                    <InfoLine />
-                    <InfoLine />
-                    <InfoLine />
-                </DescContainer>
-                <MapContainer>
-                    <Map />
-                </MapContainer>
-            </MainContainer>
-        </Aux>
+        <DescContainer>
+            <TourTitle />
+            <SubTitle />
+            <Image />
+            <ParagraphLine />
+            <ParagraphLine />
+            <ParagraphLine />
+            <ParagraphLine />
+            <ParagraphLine />
+            <InfoTitle />
+            <InfoLine />
+            <InfoLine />
+            <InfoLine />
+            <InfoLine />
+        </DescContainer>
     );
 };
 

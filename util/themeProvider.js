@@ -1,4 +1,4 @@
-import { lightTheme, darkTheme } from "../util/theme";
+import { lightTheme, darkTheme } from "./theme";
 import { ThemeProvider } from "styled-components";
 import { Context } from "../context/context";
 import { useContext } from "react";

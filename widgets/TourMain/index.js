@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import Map from "../../components/Map";
+import Loading from "../../widgets/Loading";
 import TourBody from "./TourBody";
+import { useContext } from "react";
+import { LoadingContext } from "../../pages/_app";
 
 const MainContainer = styled.div`
     margin-top: 70px;
@@ -37,16 +40,25 @@ const TourTitle = styled.h2`
 `;
 
 const TourMain = (props) => {
+    const { isLoading, setIsLoading } = useContext(LoadingContext);
+
+    console.log(isLoading);
+
     return (
         <MainContainer>
-            <DescContainer>
-                <TourTitle>{props.tour.name}</TourTitle>
-                <SubH3>
-                    {props.itin.days.length} days, {props.tour.startCity} to{" "}
-                    {props.tour.endCity}
-                </SubH3>
-                <TourBody tour={props.tour} itin={props.itin} />
-            </DescContainer>
+            {isLoading ? (
+                <Loading />
+            ) : (
+                <DescContainer>
+                    <TourTitle>{props.tour.name}</TourTitle>
+                    <SubH3>
+                        {props.itin.days.length} days, {props.tour.startCity} to{" "}
+                        {props.tour.endCity}
+                    </SubH3>
+                    <TourBody tour={props.tour} itin={props.itin} />
+                </DescContainer>
+            )}
+
             <MapContainer>
                 <Map
                     mapRoutes={props.mapRoutes}
