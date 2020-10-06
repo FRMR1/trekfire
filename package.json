@@ -24,7 +24,9 @@
         "react-accessible-accordion": "^3.3.3",
         "react-autosuggest": "^10.0.2",
         "react-dom": "16.13.1",
+        "react-ios-switch": "^0.1.19",
         "react-tabs": "^3.1.1",
+        "react-toggle": "^4.1.1",
         "styled-components": "^5.2.0",
         "use-dark-mode": "^2.3.1"
     },

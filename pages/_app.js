@@ -7,6 +7,7 @@ import ContextProvider from "../context/context";
 import ThemeProvider from "../util/themeProvider";
 import { withRouter } from "next/router";
 import "../styles/globals.css";
+import "react-toggle/style.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 export const LoadingContext = createContext(false);

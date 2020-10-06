@@ -385,8 +385,6 @@ body.dark-mode .navbar .react-autosuggest__suggestion--highlighted {
     font-weight: bold;
 }
 
-/**/
-
 .home {
     position: relative;
     top: 25%;
@@ -468,4 +466,52 @@ body.dark-mode .navbar .react-autosuggest__suggestion--highlighted {
 .home .suggestionMatch {
     color: red;
     font-weight: bold;
+}
+
+/**
+* ----------------------------------------------
+* REACT TOGGLE
+* ----------------------------------------------
+**/
+
+.reactToggle .react-toggle-track {
+    background-color: #ccc !important;
+}
+
+.reactToggle.react-toggle:hover:not(.react-toggle--disabled)
+    .react-toggle-track {
+    background-color: #ccc;
+}
+
+.reactToggle.react-toggle--checked .react-toggle-track,
+.reactToggle.react-toggle--checked:hover:not(.react-toggle--disabled)
+    .react-toggle-track {
+    background-color: #333 !important;
+}
+
+.reactToggle .react-toggle-thumb {
+    border-color: #bdbdbd !important;
+    background-color: #fbfbfb !important;
+}
+
+.reactToggle.react-toggle--checked .react-toggle-thumb {
+    border-color: #4d4d4d !important;
+    background-color: #4d4d4d !important;
+}
+
+.reactToggle.react-toggle--focus .react-toggle-thumb {
+    -webkit-box-shadow: 0px 0px 3px 2px #333;
+    -moz-box-shadow: 0px 0px 3px 2px #333;
+    box-shadow: 0px 0px 2px 3px #333;
+}
+
+.reactToggle.react-toggle:active:not(.react-toggle--disabled)
+    .react-toggle-thumb {
+    -webkit-box-shadow: 0px 0px 5px 5px #333;
+    -moz-box-shadow: 0px 0px 5px 5px #333;
+    box-shadow: 0px 0px 5px 5px #333;
+}
+
+.reactToggle .react-toggle-track-x {
+    top: -4px !important;
 }
