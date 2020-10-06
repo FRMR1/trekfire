@@ -48,11 +48,11 @@ class GAdventuresAPI extends RESTDataSource {
     async getMapAccom({ itineraryID }) {
         // Get array of all accommodation dossier IDs.
         const itinerary = await this.get(`itineraries/${itineraryID}`);
-        const accomIDs = itinerary.days.map((day) =>
+        const accomIDs = itinerary.days.flatMap((day) =>
             day.components
                 .filter((component) => component.type === "ACCOMMODATION")
                 .filter((component) => component.accommodation_dossier)
-                .flatMap((component) => component.accommodation_dossier.id)
+                .map((component) => component.accommodation_dossier.id)
         );
 
         // Get array of all accommodation "place" IDs.
@@ -78,11 +78,11 @@ class GAdventuresAPI extends RESTDataSource {
     async getMapActivities({ itineraryID }) {
         // Get array of all activity place IDs.
         const itinerary = await this.get(`itineraries/${itineraryID}`);
-        const activityLocationIDs = itinerary.days.map((day) =>
+        const activityLocationIDs = itinerary.days.flatMap((day) =>
             day.components
                 .filter((component) => component.type === "ACTIVITY")
                 .filter((component) => component.start_location)
-                .flatMap((component) => component.start_location.id)
+                .map((component) => component.start_location.id)
         );
 
         // Return array of all activity coordinates.

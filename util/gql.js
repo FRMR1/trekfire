@@ -109,49 +109,11 @@ export const GET_MAP_ROUTES = gql`
     query GetMapRoutes($coords: [String]) {
         mapRoutes(coords: $coords) {
             routes {
-                duration
-                distance
-                weight
-                weightName
-                geometry {
-                    coordinates
-                    type
-                }
                 legs {
-                    distance
-                    duration
-                    weight
-                    summary
                     steps {
-                        distance
-                        drivingSide
-                        duration
                         geometry {
                             coordinates
                             type
-                        }
-                        mode
-                        name
-                        weight
-                        intersections {
-                            location
-                            bearings
-                            entry
-                            geometryIndex
-                            in
-                            out
-                            lanes {
-                                valid
-                                indications
-                            }
-                        }
-                        maneuver {
-                            bearingBefore
-                            bearingAfter
-                            type
-                            modifier
-                            instruction
-                            location
                         }
                     }
                 }

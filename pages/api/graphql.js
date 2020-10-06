@@ -35,60 +35,6 @@ const typeDefs = gql`
         href: String!
         variationId: String
     }
-    type Routes {
-        routes: [Route]
-    }
-    type Route {
-        duration: Float
-        distance: Float
-        weight: Float
-        weightName: String
-        geometry: Geometry
-        legs: [Leg]
-    }
-    type Geometry {
-        coordinates: [[Float]]
-        type: String
-    }
-    type Leg {
-        distance: Float
-        duration: Float
-        weight: Float
-        steps: [Step]
-        summary: String
-    }
-    type Step {
-        distance: Float
-        drivingSide: String
-        duration: Float
-        geometry: Geometry
-        intersections: [Intersection]
-        maneuver: Maneuver
-        mode: String
-        name: String
-        weight: Float
-    }
-    type Intersection {
-        location: [Float]
-        bearings: [Float]
-        entry: [Boolean]
-        geometryIndex: Float
-        in: Float
-        out: Float
-        lanes: [Lane]
-    }
-    type Maneuver {
-        bearingBefore: Float
-        bearingAfter: Float
-        type: String
-        modifier: String
-        location: [Float]
-        instruction: String
-    }
-    type Lane {
-        valid: String
-        indications: [String]
-    }
     type ItinDossier {
         days: [Day]
     }
@@ -137,6 +83,22 @@ const typeDefs = gql`
         name: String
     }
     type Meal {
+        type: String
+    }
+    type Routes {
+        routes: [Route]
+    }
+    type Route {
+        legs: [Leg]
+    }
+    type Leg {
+        steps: [Step]
+    }
+    type Step {
+        geometry: Geometry
+    }
+    type Geometry {
+        coordinates: [[Float]]
         type: String
     }
 `;
