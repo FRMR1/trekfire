@@ -23,7 +23,6 @@ const Tour = ({
     mapTransport,
 }) => {
     const router = useRouter();
-    const { tourId } = router.query;
 
     return (
         <div>
@@ -60,6 +59,8 @@ export async function getStaticProps({ params }) {
     const mapActivities = await request(API_URL, GET_MAP_ACTIVITIES, itinVars);
     const mapTransport = await request(API_URL, GET_MAP_TRANSPORT, itinVars);
 
+    // Parse mapTransport array to coordinate string which can be consumed
+    // by Mapbox Directions API.
     const coords = mapTransport.mapTransport.map((route) =>
         route
             .reduce(
