@@ -23,24 +23,25 @@ const Map = (props) => {
         // Render Mapbox
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
-            style: process.env.NEXT_PUBLIC_MAPBOX_STYLE_DARK,
+            style: darkMode.value
+                ? process.env.NEXT_PUBLIC_MAPBOX_STYLE_DARK
+                : process.env.NEXT_PUBLIC_MAPBOX_STYLE_LIGHT,
             scrollZoom: false,
         });
         map.current.addControl(new mapboxgl.NavigationControl());
 
         // Create bounds for map around map routes if map routes
         // exist. If there are no map routes, fly to the first
-        // activity location. If mapRoutes is undefined (if
-        // it is the first loading state), display an empty map.
+        // activity location. If mapRoutes is undefined display
+        // an empty map.
         if (props.mapTransport && props.mapTransport.length) {
             const mapBounds = new mapboxgl.LngLatBounds();
-            const mapBoundsNestedArr = props.mapTransport.map((route) =>
+            const mapBoundsArr = props.mapTransport.flatMap((route) =>
                 route
                     .filter((location) => location)
                     .map((location) => location.coordinates)
             );
-            const mapBoundsFlatArr = mapBoundsNestedArr.flat(1);
-            mapBoundsFlatArr.forEach((location) => {
+            mapBoundsArr.forEach((location) => {
                 mapBounds.extend(location);
             });
             map.current.fitBounds(mapBounds, {
@@ -65,8 +66,8 @@ const Map = (props) => {
         const switchMapStyle = () => {
             map.current.setStyle(
                 darkMode.value
-                    ? "mapbox://styles/thebeat42/ckd7uxrpc049l1iojjtwphh31"
-                    : "mapbox://styles/thebeat42/ckfr9mrof1g6i19qhrakuab0l"
+                    ? process.env.NEXT_PUBLIC_MAPBOX_STYLE_DARK
+                    : process.env.NEXT_PUBLIC_MAPBOX_STYLE_LIGHT
             );
         };
         switchMapStyle();
