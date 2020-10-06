@@ -1,4 +1,3 @@
-import Aux from "../../../../../../hoc/Aux";
 import styled from "styled-components";
 
 const MetaSpan = styled.span`

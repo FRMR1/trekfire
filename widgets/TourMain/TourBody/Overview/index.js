@@ -1,4 +1,3 @@
-import Aux from "../../../../hoc/Aux";
 import styled from "styled-components";
 import styles from "./styles.module.css";
 
@@ -42,7 +41,7 @@ const TourImage = styled.img`
 
 const Overview = (props) => {
     return (
-        <Aux>
+        <>
             <ImageContainer>
                 <TourImage src={props.tour.images[1].href} />
             </ImageContainer>
@@ -80,7 +79,7 @@ const Overview = (props) => {
                         : "N/A"}
                 </Category>
             </CategoryTitle>
-        </Aux>
+        </>
     );
 };
 

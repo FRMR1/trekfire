@@ -1,4 +1,3 @@
-import Aux from "../../../../../hoc/Aux";
 import Component from "./Component";
 import Meals from "./Meals";
 import styled from "styled-components";

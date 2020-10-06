@@ -1,7 +1,6 @@
 import NavBar from "../NavBar";
 import styled, { keyframes } from "styled-components";
 import Map from "../../components/Map";
-import Aux from "../../hoc/Aux";
 
 const loading = keyframes`
     0% {

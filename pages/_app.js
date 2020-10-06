@@ -1,7 +1,6 @@
 import React, { createContext } from "react";
 import App from "next/app";
 import Head from "next/head";
-import Aux from "../hoc/Aux";
 import NProgress from "nprogress";
 import ContextProvider from "../context/context";
 import ThemeProvider from "../util/themeProvider";
@@ -40,7 +39,7 @@ class Trekfire extends App {
         const { Component, pageProps } = this.props;
 
         return (
-            <Aux>
+            <>
                 <Head>
                     <title>Trekfire</title>
                     <link rel="icon" href="/favicon.ico" />
@@ -57,7 +56,7 @@ class Trekfire extends App {
                         </ThemeProvider>
                     </ContextProvider>
                 </LoadingContext.Provider>
-            </Aux>
+            </>
         );
     }
 }

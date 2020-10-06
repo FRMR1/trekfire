@@ -1,9 +1,8 @@
-import Aux from "../../../../hoc/Aux";
 import Day from "./Day";
 
 const Itinerary = (props) => {
     return (
-        <Aux>
+        <>
             {props.itin.days.map((day) => (
                 <Day
                     key={day.day}
@@ -16,7 +15,7 @@ const Itinerary = (props) => {
                     components={day.components}
                 />
             ))}
-        </Aux>
+        </>
     );
 };
 

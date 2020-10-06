@@ -1,4 +1,3 @@
-import Aux from "../../../../../../hoc/Aux";
 import styled from "styled-components";
 
 const MealSpan = styled.span`
@@ -14,9 +13,9 @@ const Meals = (props) => {
         .join(" | ");
 
     return (
-        <Aux>
+        <>
             <MealSpan>Meals Included: {parsedMeals}</MealSpan>
-        </Aux>
+        </>
     );
 };
 
