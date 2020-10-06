@@ -1,12 +1,12 @@
-import styled from "styled-components";
+import { useContext } from "react";
+import { useQuery } from "@apollo/client";
+import { withApollo } from "../../util/apollo";
 import Logo from "../../components/Logo";
 import Search from "../../components/Search";
 import DarkModeToggle from "../../components/DarkModeToggle";
-import { withApollo } from "../../util/apollo";
-import { useQuery } from "@apollo/client";
-import { useContext } from "react";
 import { Context } from "../../context/context";
 import { GET_TOURS } from "../../util/gql";
+import styled from "styled-components";
 
 const NavContainer = styled.div`
     position: fixed;
@@ -35,6 +35,7 @@ const NavBar = (props) => {
             );
         }
         if (error) return `Error! ${error.message}`;
+
         setTours(data);
     }
 

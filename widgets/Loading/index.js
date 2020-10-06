@@ -1,6 +1,4 @@
-import NavBar from "../NavBar";
 import styled, { keyframes } from "styled-components";
-import Map from "../../components/Map";
 
 const loading = keyframes`
     0% {

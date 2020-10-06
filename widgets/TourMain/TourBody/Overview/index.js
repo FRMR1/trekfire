@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import styles from "./styles.module.css";
 
 const ImageContainer = styled.div`
     overflow: hidden;

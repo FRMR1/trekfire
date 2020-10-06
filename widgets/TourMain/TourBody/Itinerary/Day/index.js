@@ -8,7 +8,6 @@ const DayContainer = styled.div`
 
 const DayP = styled.p`
     margin-bottom: 35px;
-    // color: #777;
     font-weight: 200;
 `;
 
@@ -38,7 +37,6 @@ const Day = (props) => {
                     endLocation={component.endLocation}
                     summary={component.summary}
                     activityName={component.activityName}
-                    // transportDossier={component.transport_dossier}
                     accommType={component.accommType}
                     timePeriod={component.timePeriod}
                 />
