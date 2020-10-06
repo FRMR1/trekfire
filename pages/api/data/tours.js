@@ -14,19 +14,19 @@ class GAdventuresAPI extends RESTDataSource {
     }
 
     async getAllTours() {
-        // Get total number of tours with pagination
+        // Get total number of tours with pagination.
         const tourDossiers = await this.get("/tour_dossiers");
         const totalTours = tourDossiers.count;
         const totalPages = Math.ceil(totalTours / tourDossiers.max_per_page);
 
-        // Create array of all tour dossiers by page
-        const tourDossierPromises = [...Array(totalPages)].map((_, page) => {
+        // Create array of all tour dossiers by page.
+        const toursPagesPromises = [...Array(totalPages)].map((_, page) => {
             return this.get(`/tour_dossiers?page=${page}`);
         });
-        const resolvedTourDossierPages = await Promise.all(tourDossierPromises);
+        const toursPages = await Promise.all(toursPagesPromises);
 
-        // Map through pages to get flat array of tour dossier results
-        const allTours = resolvedTourDossierPages.flatMap((page) =>
+        // Map through pages to get flattened array of tour dossier results.
+        const allTours = toursPages.flatMap((page) =>
             page.results.map((result) => result)
         );
 
@@ -35,62 +35,65 @@ class GAdventuresAPI extends RESTDataSource {
             : [];
     }
 
-    async getTourDossierById({ tourId }) {
-        const response = await this.get(`tour_dossiers/${tourId}`);
+    async getTourDossierByID({ tourID }) {
+        const response = await this.get(`tour_dossiers/${tourID}`);
         return this.tourDossierReducer(response);
     }
 
-    async getItinerary({ itineraryId }) {
-        const response = await this.get(`itineraries/${itineraryId}`);
+    async getItinerary({ itineraryID }) {
+        const response = await this.get(`itineraries/${itineraryID}`);
         return this.itineraryReducer(response);
     }
 
-    async getMapAccom({ itineraryId }) {
-        // Get array of all accommodation dossier ID's.
-        const response = await this.get(`itineraries/${itineraryId}`);
-        const nestedAccomArr = response.days.map((day) =>
+    async getMapAccom({ itineraryID }) {
+        // Get array of all accommodation dossier IDs.
+        const itinerary = await this.get(`itineraries/${itineraryID}`);
+        const accomIDs = itinerary.days.map((day) =>
             day.components
                 .filter((component) => component.type === "ACCOMMODATION")
                 .filter((component) => component.accommodation_dossier)
-                .map((component) => component.accommodation_dossier.id)
+                .flatMap((component) => component.accommodation_dossier.id)
         );
 
-        const accomArr = nestedAccomArr.flat(1).filter((el) => el);
-
-        // Return array of all accommodation place ID's.
-        const accomPromises = accomArr.map((id) =>
+        // Get array of all accommodation "place" IDs.
+        const accomDossiersPromises = accomIDs.map((id) =>
             this.get(`accommodation_dossiers/${id}`)
         );
-        const accomResolved = await Promise.all(accomPromises);
-        const placeIds = accomResolved
-            .filter((accom) => accom.location)
+        const accomDossiers = await Promise.all(accomDossiersPromises);
+        const placeIDs = accomDossiers
+            .filter((accom) => accom.location) // some accomomodation dossiers don't include locations
             .map((accom) => accom.location.id);
 
         // Return array of all accommodation coordinates.
-        const placesPromises = placeIds.map((id) => this.get(`places/${id}`));
-        const accomPlaces = await Promise.all(placesPromises);
+        const accomPlacesPromises = placeIDs.map((id) =>
+            this.get(`places/${id}`)
+        );
+        const accomPlaces = await Promise.all(accomPlacesPromises);
 
         return Array.isArray(accomPlaces)
             ? accomPlaces.map((place) => this.mapAccomReducer(place))
             : [];
     }
 
-    async getMapActivities({ itineraryId }) {
-        // Get array of all activity place ID's.
-        const response = await this.get(`itineraries/${itineraryId}`);
-        const activityArr = response.days.map((day) =>
+    async getMapActivities({ itineraryID }) {
+        // Get array of all activity place IDs.
+        const itinerary = await this.get(`itineraries/${itineraryID}`);
+        const activityLocationIDs = itinerary.days.map((day) =>
             day.components
                 .filter((component) => component.type === "ACTIVITY")
                 .filter((component) => component.start_location)
-                .map((component) => component.start_location.id)
+                .flatMap((component) => component.start_location.id)
         );
-        const idArr = activityArr.flat(1);
 
         // Return array of all activity coordinates.
-        const placesPromises = idArr.map((id) => this.get(`places/${id}`));
-        const activityPlaces = await Promise.all(placesPromises);
+        const activityPlacesPromises = activityLocationIDs.map((id) =>
+            this.get(`places/${id}`)
+        );
+        const activityPlaces = await Promise.all(activityPlacesPromises);
 
-        const filteredPlaces = activityPlaces.filter(
+        // Filter out any invalid coordinate values which would cause
+        // Mapbox Directions API to err.
+        const activityCoordinates = activityPlaces.filter(
             (place) =>
                 parseFloat(place.latitude) >= -90 &&
                 parseFloat(place.latitude) <= 90 &&
@@ -98,15 +101,15 @@ class GAdventuresAPI extends RESTDataSource {
                 parseFloat(place.longitude) <= 180
         );
 
-        return Array.isArray(filteredPlaces)
-            ? filteredPlaces.map((place) => this.mapActivityReducer(place))
+        return Array.isArray(activityCoordinates)
+            ? activityCoordinates.map((place) => this.mapActivityReducer(place))
             : [];
     }
 
-    async getMapTransport({ itineraryId }) {
-        // Get array of all transport place ID's.
-        const response = await this.get(`itineraries/${itineraryId}`);
-        const transportArr = response.days.map((day) =>
+    async getMapTransport({ itineraryID }) {
+        // Get array of all transport place IDs.
+        const itinerary = await this.get(`itineraries/${itineraryID}`);
+        const transportPlaceIDs = itinerary.days.flatMap((day) =>
             day.components
                 .filter((component) => component.type === "TRANSPORT")
                 .filter(
@@ -118,17 +121,18 @@ class GAdventuresAPI extends RESTDataSource {
                     component.end_location.id,
                 ])
         );
-        const idArr = transportArr.flat(1);
 
         // Return array of all transport coordinates.
-        const routesPromises = idArr.map((route) =>
+        const transportPlacesPromises = transportPlaceIDs.map((route) =>
             route.map((id) => this.get(`places/${id}`))
         );
-        const routes = await Promise.all(
-            routesPromises.map(async (route) => await Promise.all(route))
+        const transportPlaces = await Promise.all(
+            transportPlacesPromises.map(
+                async (route) => await Promise.all(route)
+            )
         );
-        // Filter out invalid coodinate values
-        const filteredRoutes = routes.filter(
+        // Filter out invalid coodinate values.
+        const transportCoordinates = transportPlaces.filter(
             (route) =>
                 parseFloat(route[0].latitude) >= -90 &&
                 parseFloat(route[0].latitude) <= 90 &&
@@ -140,8 +144,8 @@ class GAdventuresAPI extends RESTDataSource {
                 parseFloat(route[1].longitude) <= 180
         );
 
-        return Array.isArray(filteredRoutes)
-            ? filteredRoutes.map((route) =>
+        return Array.isArray(transportCoordinates)
+            ? transportCoordinates.map((route) =>
                   route.map((route) => this.mapTransportReducer(route))
               )
             : [];

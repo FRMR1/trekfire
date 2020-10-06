@@ -147,24 +147,24 @@ const resolvers = {
             return dataSources.GAdventuresAPI.getAllTours();
         },
         tourDossier: (_, { id }, { dataSources }) => {
-            return dataSources.GAdventuresAPI.getTourDossierById({
-                tourId: id,
+            return dataSources.GAdventuresAPI.getTourDossierByID({
+                tourID: id,
             });
         },
         itinDossier: async (_, { id }, { dataSources }) => {
-            return dataSources.GAdventuresAPI.getItinerary({ itineraryId: id });
+            return dataSources.GAdventuresAPI.getItinerary({ itineraryID: id });
         },
         mapAccom: async (_, { id }, { dataSources }) => {
-            return dataSources.GAdventuresAPI.getMapAccom({ itineraryId: id });
+            return dataSources.GAdventuresAPI.getMapAccom({ itineraryID: id });
         },
         mapActivities: async (_, { id }, { dataSources }) => {
             return dataSources.GAdventuresAPI.getMapActivities({
-                itineraryId: id,
+                itineraryID: id,
             });
         },
         mapTransport: async (_, { id }, { dataSources }) => {
             return dataSources.GAdventuresAPI.getMapTransport({
-                itineraryId: id,
+                itineraryID: id,
             });
         },
         mapRoutes: async (_, { coords }, { dataSources }) => {
