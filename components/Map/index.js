@@ -5,11 +5,9 @@ import styled from "styled-components";
 import * as geoJson from "../../util/geojson";
 
 const MapDiv = styled.div`
+    height: calc(100vh - 70px);
+    width: calc(100% - 640px);
     position: fixed;
-    top: 0;
-    bottom: 0;
-    width: 47%;
-    margin-top: 70px;
 `;
 
 const Map = (props) => {

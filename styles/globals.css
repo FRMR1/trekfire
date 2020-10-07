@@ -298,7 +298,10 @@ body.dark-mode .react-tabs__tab-list {
     letter-spacing: -0.2px;
     border: 1px solid #ddd;
     border-radius: 20px;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
+    transition: color 0.3s ease;
+    transition: border 0.3s ease;
+    transition: box-shadow 0.3s ease;
 }
 
 body.dark-mode .navbar .react-autosuggest__input {
@@ -306,7 +309,10 @@ body.dark-mode .navbar .react-autosuggest__input {
     box-shadow: 0 0 6px rgb(0, 0, 0, 0.1);
     border: none;
     color: #ff5c6e;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
+    transition: color 0.3s ease;
+    transition: border 0.3s ease;
+    transition: box-shadow 0.3s ease;
 }
 
 body.dark-mode .navbar .react-autosuggest__input::placeholder {
@@ -349,7 +355,10 @@ body.dark-mode .navbar .react-autosuggest__input--focused {
     overflow-y: auto;
     max-height: 400px;
     box-shadow: 0 3px 6px rgb(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
+    transition: color 0.3s ease;
+    transition: border 0.3s ease;
+    transition: box-shadow 0.3s ease;
 }
 
 body.dark-mode .navbar .react-autosuggest__suggestions-container--open {

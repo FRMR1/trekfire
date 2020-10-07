@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useQuery } from "@apollo/client";
+import { disableExperimentalFragmentVariables, useQuery } from "@apollo/client";
 import { withApollo } from "../../util/apollo";
 import Logo from "../../components/Logo";
 import Search from "../../components/Search";
@@ -25,24 +25,29 @@ const NavBar = (props) => {
     if (!Object.keys(tours).length) {
         const { data, loading, error } = useQuery(GET_TOURS);
 
-        if (loading) {
-            return (
-                <NavContainer>
-                    <Logo />
-                    <Search home={false} tourData={tours} loading={true} />
-                    <DarkModeToggle />
-                </NavContainer>
-            );
+        if (data) {
+            setTours(data);
         }
+
         if (error) return `Error! ${error.message}`;
 
-        setTours(data);
+        return (
+            <NavContainer>
+                <Logo />
+                <Search
+                    home={false}
+                    tourData={tours}
+                    loading={loading ? true : false}
+                />
+                <DarkModeToggle />
+            </NavContainer>
+        );
     }
 
     return (
         <NavContainer>
             <Logo />
-            <Search theme={"navbar"} tourData={tours} />
+            <Search home={false} tourData={tours} loading={false} />
             <DarkModeToggle />
         </NavContainer>
     );

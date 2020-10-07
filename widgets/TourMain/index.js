@@ -7,19 +7,19 @@ import { LoadingContext } from "../../pages/_app";
 
 const MainContainer = styled.div`
     margin-top: 70px;
-    flex-direction: row;
-    display: flex;
+    position: relative;
+    min-height: calc(100vh - 70px);
 `;
 
 const DescContainer = styled.div`
-    margin: 30px 40px 50px;
-    width: 50%;
+    padding: 30px 40px 50px;
+    width: 640px !important;
 `;
 
 const MapContainer = styled.div`
-    position: relative;
-    height: 100% !important;
-    width: 50% !important;
+    inset: 0;
+    left: 640px;
+    position: absolute;
 `;
 
 const SubH3 = styled.h3`

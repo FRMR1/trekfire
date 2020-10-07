@@ -12,20 +12,20 @@ class Search extends React.Component {
             value: "",
             suggestions: [],
         };
+        this.inputRef = React.createRef();
     }
 
     static contextType = Context;
 
     getSuggestions = (value) => {
-        if (this.props.loading) {
+        if (!this.props.loading) {
+            const inputValue = value.trim().toLowerCase();
+            const inputLength = inputValue.length;
+            const trie = createTrie(this.context.tours.tours, "name");
+            return inputLength === 0 ? [] : trie.getMatches(inputValue);
+        } else {
             return [];
         }
-
-        const inputValue = value.trim().toLowerCase();
-        const inputLength = inputValue.length;
-        const trie = createTrie(this.context.tours.tours, "name");
-
-        return inputLength === 0 ? [] : trie.getMatches(inputValue);
     };
 
     getSuggestionValue = (suggestion) => suggestion.name;
@@ -68,6 +68,19 @@ class Search extends React.Component {
         });
     };
 
+    componentDidUpdate(prevProps) {
+        if (
+            this.props.tourData !== prevProps.tourData &&
+            Object.keys(this.props.tourData).length
+        ) {
+            this.setState({
+                value: this.inputRef.current.input.value,
+            });
+            console.log(this.context.tours);
+            console.log(this.inputRef.current.input.value);
+        }
+    }
+
     render() {
         const { value, suggestions } = this.state;
 
@@ -92,6 +105,7 @@ class Search extends React.Component {
                     inputProps={inputProps}
                     onSuggestionSelected={this.onSuggestionSelected}
                     focusInputOnSuggestionClick={false}
+                    ref={this.inputRef}
                 />
             </div>
         );
