@@ -10,23 +10,13 @@ const loading = keyframes`
     }
 `;
 
-const MainContainer = styled.div`
-    margin-top: 70px;
-    flex-direction: row;
-    display: flex;
-`;
-
-const MapContainer = styled.div`
-    position: relative;
-    overflow: hidden;
-    height: 100% !important;
-    width: 50% !important;
-`;
-
 const DescContainer = styled.div`
-    margin: 30px 40px 50px;
+    padding: 30px 40px 50px;
     position: relative;
-    width: 50%;
+    @media only screen and (min-width: 1024px) {
+        width: 640px !important;
+        padding: 30px 40px 50px;
+    }
 `;
 
 const TourTitle = styled.div`

@@ -14,8 +14,17 @@ const HomeContainer = styled.div`
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    position: fixed;
+    position: absolute;
     top: 0;
+`;
+
+const LogoContainer = styled.div`
+    position: absolute;
+`;
+
+const SubContainer = styled.div`
+    position: relative;
+    margin: 28vh 20px 0;
 `;
 
 const SearchBar = styled(Search)`
@@ -24,8 +33,6 @@ const SearchBar = styled(Search)`
 
 const HomeH2 = styled.h2`
     color: #ff5c6e;
-    position: relative;
-    top: 25%;
     text-align: center;
     font-size: 35px;
     font-family: "NeoTech";
@@ -43,13 +50,17 @@ const Home = (props) => {
 
     return (
         <HomeContainer>
-            <Logo />
-            <HomeH2>Your next adventure begins here.</HomeH2>
-            <SearchBar
-                tourData={data ? tours : null}
-                home={true}
-                loading={loading ? true : false}
-            />
+            <LogoContainer>
+                <Logo />
+            </LogoContainer>
+            <SubContainer>
+                <HomeH2>Your next adventure begins here.</HomeH2>
+                <SearchBar
+                    tourData={data ? tours : null}
+                    home={true}
+                    loading={loading ? true : false}
+                />
+            </SubContainer>
         </HomeContainer>
     );
 };

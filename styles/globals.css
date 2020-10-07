@@ -289,7 +289,8 @@ body.dark-mode .react-tabs__tab-list {
 }
 
 .navbar .react-autosuggest__input {
-    width: 440px;
+    max-width: 440px;
+    width: 50vw;
     height: 40px;
     padding: 12px 20px 9px;
     font-family: Helvetica, Arial, sans-serif;
@@ -302,6 +303,9 @@ body.dark-mode .react-tabs__tab-list {
     transition: color 0.3s ease;
     transition: border 0.3s ease;
     transition: box-shadow 0.3s ease;
+    @media only screen and (min-width: 1024px) {
+        width: 440px;
+    }
 }
 
 body.dark-mode .navbar .react-autosuggest__input {
@@ -341,7 +345,8 @@ body.dark-mode .navbar .react-autosuggest__input--focused {
     display: block;
     position: absolute;
     top: 38px;
-    width: 440px;
+    max-width: 440px;
+    width: 50vw;
     border: 1px solid #ddd;
     border-top: none;
     background-color: #fff;
@@ -359,6 +364,9 @@ body.dark-mode .navbar .react-autosuggest__input--focused {
     transition: color 0.3s ease;
     transition: border 0.3s ease;
     transition: box-shadow 0.3s ease;
+    @media only screen and (min-width: 1024px) {
+        width: 440px;
+    }
 }
 
 body.dark-mode .navbar .react-autosuggest__suggestions-container--open {
@@ -396,13 +404,13 @@ body.dark-mode .navbar .react-autosuggest__suggestion--highlighted {
 
 .home {
     position: relative;
-    top: 25%;
     z-index: 1;
     text-align: center;
 }
 
 .home .react-autosuggest__input {
-    width: 600px;
+    max-width: 600px;
+    width: 90vw;
     height: 50px;
     padding: 12px 20px 8px;
     font-family: Helvetica, Arial, sans-serif;
@@ -435,11 +443,11 @@ body.dark-mode .navbar .react-autosuggest__suggestion--highlighted {
 
 .home .react-autosuggest__suggestions-container--open {
     display: block;
-    position: absolute;
-    top: 50px;
+    position: relative;
     left: 50%;
     transform: translateX(-50%);
-    width: 600px;
+    max-width: 600px;
+    width: 90vw;
     text-align: left;
     border: none;
     color: #ff5c6e;
@@ -452,7 +460,7 @@ body.dark-mode .navbar .react-autosuggest__suggestion--highlighted {
     border-bottom-right-radius: 25px;
     z-index: 2;
     overflow-y: auto;
-    max-height: 250px;
+    max-height: 40vh;
     box-shadow: 0 6px 6px rgb(0, 0, 0, 0.2);
 }
 

@@ -68,18 +68,20 @@ class Search extends React.Component {
         });
     };
 
-    componentDidUpdate(prevProps) {
-        if (
-            this.props.tourData !== prevProps.tourData &&
-            Object.keys(this.props.tourData).length
-        ) {
-            this.setState({
-                value: this.inputRef.current.input.value,
-            });
-            console.log(this.context.tours);
-            console.log(this.inputRef.current.input.value);
-        }
-    }
+    // Trying to get suggestions to render on loading state change.
+
+    // componentDidUpdate(prevProps) {
+    //     if (
+    //         this.props.tourData !== prevProps.tourData &&
+    //         Object.keys(this.props.tourData).length
+    //     ) {
+    //         this.setState({
+    //             value: this.inputRef.current.input.value,
+    //         });
+    //         console.log(this.context.tours);
+    //         console.log(this.inputRef.current.input.value);
+    //     }
+    // }
 
     render() {
         const { value, suggestions } = this.state;

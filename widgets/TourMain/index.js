@@ -12,14 +12,22 @@ const MainContainer = styled.div`
 `;
 
 const DescContainer = styled.div`
-    padding: 30px 40px 50px;
-    width: 640px !important;
+    padding: 30px 20px 50px;
+    @media only screen and (min-width: 1024px) {
+        width: 640px !important;
+        padding: 30px 40px 50px;
+    }
 `;
 
 const MapContainer = styled.div`
-    inset: 0;
-    left: 640px;
-    position: absolute;
+    @media only screen and (max-width: 1023px) {
+        height: 500px;
+    }
+    @media only screen and (min-width: 1024px) {
+        inset: 0;
+        left: 640px;
+        position: absolute;
+    }
 `;
 
 const SubH3 = styled.h3`
