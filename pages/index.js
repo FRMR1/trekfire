@@ -1,5 +1,6 @@
 import { useContext } from "react";
-import { withApollo } from "../util/apollo";
+// import { withApollo } from "../util/apollo";
+import { initializeApollo } from "../apollo/client";
 import { useQuery } from "@apollo/client";
 import styled from "styled-components";
 import Search from "../components/Search";
@@ -65,4 +66,86 @@ const Home = (props) => {
     );
 };
 
-export default withApollo(Home);
+export async function getStaticPaths() {
+    console.log("GET STATIC PATHS");
+
+    const queryResult = await apolloClient.query({
+        query: GET_TOUR_DOSSIER,
+        variables: tourVars,
+    });
+
+    console.log(queryResult);
+    // const paths = tours.tours.map((tour) => `/tours/${tour.id}`);
+    const paths = null;
+
+    // { fallback: false } means other routes should 404.
+    return { paths, fallback: false };
+}
+
+export async function getStaticProps({ params }) {
+    console.log("GET STATIC PROPS");
+
+    const apolloClient = initializeApollo();
+
+    const tourVars = { id: params.id };
+
+    await apolloClient.query({
+        query: GET_TOUR_DOSSIER,
+        variables: tourVars,
+    });
+
+    await apolloClient.query({
+        query: GET_ITIN_DOSSIER,
+        variables: itinVars,
+    });
+
+    await apolloClient.query({
+        query: GET_MAP_ACTIVITIES,
+        variables: itinVars,
+    });
+
+    await apolloClient.query({
+        query: GET_MAP_TRANSPORT,
+        variables: itinVars,
+    });
+
+    // params contains the tour `id`.
+    // const tourVars = { id: params.id };
+    // const tourDossier = await request(API_URL, GET_TOUR_DOSSIER, tourVars);
+
+    // const itinVars = { id: tourDossier.tourDossier.itinerary[0].id };
+    // const itinDossier = await request(API_URL, GET_ITIN_DOSSIER, itinVars);
+
+    // const mapAccom = await request(API_URL, GET_MAP_ACCOM, itinVars);
+    // const mapActivities = await request(API_URL, GET_MAP_ACTIVITIES, itinVars);
+    // const mapTransport = await request(API_URL, GET_MAP_TRANSPORT, itinVars);
+
+    // Parse mapTransport array to coordinate string which can be consumed
+    // by Mapbox Directions API.
+    // const coords = mapTransport.mapTransport.map((route) =>
+    //     route
+    //         .reduce(
+    //             (str, place) =>
+    //                 `${str};${place.coordinates[0]},${place.coordinates[1]}`,
+    //             ""
+    //         )
+    //         .substring(1)
+    // );
+    // const routesVars = { coords };
+    // const mapRoutes = await request(API_URL, GET_MAP_ROUTES, routesVars);
+
+    // Pass tour and itinerary data to the page via props.
+    return {
+        props: {
+            tourDossier,
+            itinDossier,
+            mapAccom,
+            mapRoutes,
+            mapActivities,
+            // mapTransport,
+            initialApolloState: apolloClient.cache.extract(),
+        },
+    };
+}
+
+export default Home;

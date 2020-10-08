@@ -1,6 +1,5 @@
 import { useContext } from "react";
-import { disableExperimentalFragmentVariables, useQuery } from "@apollo/client";
-import { withApollo } from "../../util/apollo";
+import { useQuery } from "@apollo/client";
 import Logo from "../../components/Logo";
 import Search from "../../components/Search";
 import DarkModeToggle from "../../components/DarkModeToggle";
@@ -53,4 +52,4 @@ const NavBar = (props) => {
     );
 };
 
-export default withApollo(NavBar);
+export default NavBar;

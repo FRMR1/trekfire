@@ -1,3 +1,4 @@
+import { initializeApollo } from "../apollo/client";
 import NavBar from "../../widgets/NavBar";
 import { useRouter } from "next/router";
 import { request } from "graphql-request";
@@ -40,6 +41,8 @@ const Tour = ({
 };
 
 export async function getStaticPaths() {
+    console.log("GET STATIC PATHS");
+
     const tours = await request(API_URL, GET_TOURS);
     const paths = tours.tours.map((tour) => `/tours/${tour.id}`);
 
@@ -48,30 +51,56 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    // params contains the tour `id`.
+    console.log("GET STATIC PROPS");
+
+    const apolloClient = initializeApollo();
+
     const tourVars = { id: params.id };
-    const tourDossier = await request(API_URL, GET_TOUR_DOSSIER, tourVars);
 
-    const itinVars = { id: tourDossier.tourDossier.itinerary[0].id };
-    const itinDossier = await request(API_URL, GET_ITIN_DOSSIER, itinVars);
+    await apolloClient.query({
+        query: GET_TOUR_DOSSIER,
+        variables: tourVars,
+    });
 
-    const mapAccom = await request(API_URL, GET_MAP_ACCOM, itinVars);
-    const mapActivities = await request(API_URL, GET_MAP_ACTIVITIES, itinVars);
-    const mapTransport = await request(API_URL, GET_MAP_TRANSPORT, itinVars);
+    await apolloClient.query({
+        query: GET_ITIN_DOSSIER,
+        variables: itinVars,
+    });
+
+    await apolloClient.query({
+        query: GET_MAP_ACTIVITIES,
+        variables: itinVars,
+    });
+
+    await apolloClient.query({
+        query: GET_MAP_TRANSPORT,
+        variables: itinVars,
+    });
+
+    // params contains the tour `id`.
+    // const tourVars = { id: params.id };
+    // const tourDossier = await request(API_URL, GET_TOUR_DOSSIER, tourVars);
+
+    // const itinVars = { id: tourDossier.tourDossier.itinerary[0].id };
+    // const itinDossier = await request(API_URL, GET_ITIN_DOSSIER, itinVars);
+
+    // const mapAccom = await request(API_URL, GET_MAP_ACCOM, itinVars);
+    // const mapActivities = await request(API_URL, GET_MAP_ACTIVITIES, itinVars);
+    // const mapTransport = await request(API_URL, GET_MAP_TRANSPORT, itinVars);
 
     // Parse mapTransport array to coordinate string which can be consumed
     // by Mapbox Directions API.
-    const coords = mapTransport.mapTransport.map((route) =>
-        route
-            .reduce(
-                (str, place) =>
-                    `${str};${place.coordinates[0]},${place.coordinates[1]}`,
-                ""
-            )
-            .substring(1)
-    );
-    const routesVars = { coords };
-    const mapRoutes = await request(API_URL, GET_MAP_ROUTES, routesVars);
+    // const coords = mapTransport.mapTransport.map((route) =>
+    //     route
+    //         .reduce(
+    //             (str, place) =>
+    //                 `${str};${place.coordinates[0]},${place.coordinates[1]}`,
+    //             ""
+    //         )
+    //         .substring(1)
+    // );
+    // const routesVars = { coords };
+    // const mapRoutes = await request(API_URL, GET_MAP_ROUTES, routesVars);
 
     // Pass tour and itinerary data to the page via props.
     return {
@@ -81,7 +110,8 @@ export async function getStaticProps({ params }) {
             mapAccom,
             mapRoutes,
             mapActivities,
-            mapTransport,
+            // mapTransport,
+            initialApolloState: apolloClient.cache.extract(),
         },
     };
 }

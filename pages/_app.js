@@ -1,4 +1,7 @@
 import React, { createContext } from "react";
+
+import { ApolloProvider } from "@apollo/client";
+import { withUseApollo } from "../util/hoc/withUseApollo";
 import App from "next/app";
 import Head from "next/head";
 import NProgress from "nprogress";
@@ -37,6 +40,7 @@ class Trekfire extends App {
 
     render() {
         const { Component, pageProps } = this.props;
+        console.log("app props", this.props);
 
         return (
             <>
@@ -44,6 +48,7 @@ class Trekfire extends App {
                     <title>Trekfire</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
+                {/* <ApolloProvider client={this.props.apolloClient}> */}
                 <LoadingContext.Provider
                     value={{
                         isLoading: this.state.isLoading,
@@ -56,9 +61,10 @@ class Trekfire extends App {
                         </ThemeProvider>
                     </ContextProvider>
                 </LoadingContext.Provider>
+                {/* </ApolloProvider> */}
             </>
         );
     }
 }
 
-export default withRouter(Trekfire);
+export default withUseApollo(withRouter(Trekfire));

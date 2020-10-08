@@ -114,4 +114,4 @@ class Search extends React.Component {
     }
 }
 
-export default withApollo(withRouter(Search));
+export default withRouter(Search);
