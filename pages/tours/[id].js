@@ -1,7 +1,7 @@
-import { initializeApollo } from "../apollo/client";
+import { initializeApollo } from "../../apollo/client";
 import NavBar from "../../widgets/NavBar";
 import { useRouter } from "next/router";
-import { request } from "graphql-request";
+// import { request } from "graphql-request";
 import {
     GET_TOURS,
     GET_TOUR_DOSSIER,
@@ -41,9 +41,13 @@ const Tour = ({
 };
 
 export async function getStaticPaths() {
-    console.log("GET STATIC PATHS");
+    const apolloClient = initializeApollo();
 
-    const tours = await request(API_URL, GET_TOURS);
+    console.log("apollo client", apolloClient);
+
+    const tours = await apolloClient.query({
+        query: GET_TOURS,
+    });
     const paths = tours.tours.map((tour) => `/tours/${tour.id}`);
 
     // { fallback: false } means other routes should 404.
@@ -51,31 +55,29 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    console.log("GET STATIC PROPS");
-
     const apolloClient = initializeApollo();
 
     const tourVars = { id: params.id };
 
-    await apolloClient.query({
-        query: GET_TOUR_DOSSIER,
-        variables: tourVars,
-    });
+    // await apolloClient.query({
+    //     query: GET_TOUR_DOSSIER,
+    //     variables: tourVars,
+    // });
 
-    await apolloClient.query({
-        query: GET_ITIN_DOSSIER,
-        variables: itinVars,
-    });
+    // await apolloClient.query({
+    //     query: GET_ITIN_DOSSIER,
+    //     variables: itinVars,
+    // });
 
-    await apolloClient.query({
-        query: GET_MAP_ACTIVITIES,
-        variables: itinVars,
-    });
+    // await apolloClient.query({
+    //     query: GET_MAP_ACTIVITIES,
+    //     variables: itinVars,
+    // });
 
-    await apolloClient.query({
-        query: GET_MAP_TRANSPORT,
-        variables: itinVars,
-    });
+    // await apolloClient.query({
+    //     query: GET_MAP_TRANSPORT,
+    //     variables: itinVars,
+    // });
 
     // params contains the tour `id`.
     // const tourVars = { id: params.id };

@@ -40,7 +40,6 @@ class Trekfire extends App {
 
     render() {
         const { Component, pageProps } = this.props;
-        console.log("app props", this.props);
 
         return (
             <>
@@ -48,20 +47,20 @@ class Trekfire extends App {
                     <title>Trekfire</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
-                {/* <ApolloProvider client={this.props.apolloClient}> */}
-                <LoadingContext.Provider
-                    value={{
-                        isLoading: this.state.isLoading,
-                        setIsLoading: this.setIsLoading,
-                    }}
-                >
-                    <ContextProvider>
-                        <ThemeProvider>
-                            <Component {...pageProps} />
-                        </ThemeProvider>
-                    </ContextProvider>
-                </LoadingContext.Provider>
-                {/* </ApolloProvider> */}
+                <ApolloProvider client={this.props.apolloClient}>
+                    <LoadingContext.Provider
+                        value={{
+                            isLoading: this.state.isLoading,
+                            setIsLoading: this.setIsLoading,
+                        }}
+                    >
+                        <ContextProvider>
+                            <ThemeProvider>
+                                <Component {...pageProps} />
+                            </ThemeProvider>
+                        </ContextProvider>
+                    </LoadingContext.Provider>
+                </ApolloProvider>
             </>
         );
     }

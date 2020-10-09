@@ -5,10 +5,12 @@ import DirectionsAPI from "./data/map";
 
 const apolloServer = new ApolloServer({
     schema,
-    dataSources: () => ({
-        GAdventuresAPI: new GAdventuresAPI(),
-        DirectionsAPI: new DirectionsAPI(),
-    }),
+    dataSources: () => {
+        return {
+            GAdventuresAPI: new GAdventuresAPI(),
+            DirectionsAPI: new DirectionsAPI(),
+        };
+    },
     engine: {
         reportSchema: true,
         variant: "current",
