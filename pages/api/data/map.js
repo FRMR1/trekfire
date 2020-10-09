@@ -4,6 +4,7 @@ class DirectionsAPI extends RESTDataSource {
     constructor() {
         super();
         this.baseURL = "https://api.mapbox.com/directions/v5/mapbox/";
+        this.initialize({});
     }
 
     async getMapRoutes({ coordsArr }) {

@@ -1,7 +1,6 @@
 export const resolvers = {
     Query: {
         tours: async (_, __, { dataSources }) => {
-            console.log("DATA SOURCES: ", dataSources);
             return dataSources.GAdventuresAPI.getAllTours();
         },
         tourDossier: (_, { id }, { dataSources }) => {

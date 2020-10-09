@@ -4,6 +4,7 @@ class GAdventuresAPI extends RESTDataSource {
     constructor() {
         super();
         this.baseURL = "https://rest.gadventures.com/";
+        this.initialize({});
     }
 
     willSendRequest(request) {
