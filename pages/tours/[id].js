@@ -1,7 +1,7 @@
 import { initializeApollo } from "../../apollo/client";
 import NavBar from "../../widgets/NavBar";
 import { useRouter } from "next/router";
-// import { request } from "graphql-request";
+import { useQuery } from "@apollo/client";
 import {
     GET_TOURS,
     GET_TOUR_DOSSIER,
@@ -13,32 +13,74 @@ import {
 } from "../../util/gql";
 import TourMain from "../../widgets/TourMain";
 
-const API_URL = process.env.API_URL;
-
-const Tour = ({
-    // tourDossier,
-    // itinDossier,
-    // mapRoutes,
-    // mapAccom,
-    // mapActivities,
-    // mapTransport,
-    initialApolloState,
-}) => {
+const Tour = () => {
     const router = useRouter();
 
-    console.log(initialApolloState);
+    const tourDossier = useQuery(GET_TOUR_DOSSIER, {
+        variables: { id: router.query.id },
+    });
+
+    const itinVars = { id: tourDossier.data?.tourDossier.itinerary[0].id };
+    const skipItin = itinVars === undefined;
+    const itinDossier = useQuery(GET_ITIN_DOSSIER, {
+        variables: itinVars,
+        skipItin,
+    });
+    const mapAccom = useQuery(GET_MAP_ACCOM, { variables: itinVars }, skipItin);
+    const mapActivities = useQuery(
+        GET_MAP_ACTIVITIES,
+        {
+            variables: itinVars,
+        },
+        skipItin
+    );
+    const mapTransport = useQuery(
+        GET_MAP_TRANSPORT,
+        {
+            variables: itinVars,
+        },
+        skipItin
+    );
+
+    const coords =
+        mapTransport?.data &&
+        mapTransport.data.mapTransport.map((route) =>
+            route
+                .reduce(
+                    (str, place) =>
+                        `${str};${place.coordinates[0]},${place.coordinates[1]}`,
+                    ""
+                )
+                .substring(1)
+        );
+    const routesVars = { coords };
+    const skipRoutes = routesVars === undefined;
+    const mapRoutes = useQuery(
+        GET_MAP_ROUTES,
+        {
+            variables: routesVars,
+        },
+        skipRoutes
+    );
 
     return (
         <div>
             <NavBar />
-            <TourMain
-                tour={initialApolloState.tourDossier}
-                itin={initialApolloState.itinDossier}
-                mapRoutes={initialApolloState.mapRoutes}
-                mapAccom={initialApolloState.mapAccom}
-                mapActivities={initialApolloState.mapActivities}
-                mapTransport={initialApolloState.mapTransport}
-            />
+            {tourDossier?.data &&
+                itinDossier?.data &&
+                mapAccom?.data &&
+                mapActivities?.data &&
+                mapTransport?.data &&
+                mapRoutes?.data && (
+                    <TourMain
+                        tour={tourDossier.data.tourDossier}
+                        itin={itinDossier.data.itinDossier}
+                        mapAccom={mapAccom.data.mapAccom}
+                        mapActivities={mapActivities.data.mapActivities}
+                        mapTransport={mapTransport.data.mapTransport}
+                        mapRoutes={mapRoutes.data.mapRoutes}
+                    />
+                )}
         </div>
     );
 };
@@ -67,22 +109,17 @@ export async function getStaticProps({ params }) {
 
     const itinVars = { id: tourDossier.data.tourDossier.itinerary[0].id };
 
-    console.log(
-        "ITIN VARS",
-        tourDossier.data.tourDossier.itinerary[0],
-        tourDossier.data.tourDossier.itinerary[1]
-    );
-    const itinDossier = await apolloClient.query({
+    await apolloClient.query({
         query: GET_ITIN_DOSSIER,
         variables: itinVars,
     });
 
-    const mapAccom = await apolloClient.query({
+    await apolloClient.query({
         query: GET_MAP_ACCOM,
         variables: itinVars,
     });
 
-    const mapActivities = await apolloClient.query({
+    await apolloClient.query({
         query: GET_MAP_ACTIVITIES,
         variables: itinVars,
     });
@@ -104,7 +141,7 @@ export async function getStaticProps({ params }) {
             .substring(1)
     );
     const routesVars = { coords };
-    const mapRoutes = await apolloClient.query({
+    await apolloClient.query({
         query: GET_MAP_ROUTES,
         variables: routesVars,
     });
@@ -112,12 +149,6 @@ export async function getStaticProps({ params }) {
     // Pass tour and itinerary data to the page via props.
     return {
         props: {
-            // tourDossier,
-            // itinDossier,
-            // mapAccom,
-            // mapRoutes,
-            // mapActivities,
-            // mapTransport,
             initialApolloState: apolloClient.cache.extract(),
         },
     };

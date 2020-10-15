@@ -1,5 +1,4 @@
 import React, { createContext } from "react";
-
 import { ApolloProvider } from "@apollo/client";
 import { withUseApollo } from "../util/hoc/withUseApollo";
 import App from "next/app";
