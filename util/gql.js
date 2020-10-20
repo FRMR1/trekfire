@@ -35,6 +35,7 @@ export const GET_TOUR_DOSSIER = gql`
             }
             itinerary {
                 id
+                variationId
             }
             startCity
             endCity
@@ -43,8 +44,8 @@ export const GET_TOUR_DOSSIER = gql`
 `;
 
 export const GET_ITIN_DOSSIER = gql`
-    query GetItinDossier($id: ID!) {
-        itinDossier(id: $id) {
+    query GetItinDossier($id: ID!, $variationId: ID!) {
+        itinDossier(id: $id, variationId: $variationId) {
             days {
                 day
                 summary
@@ -79,8 +80,8 @@ export const GET_ITIN_DOSSIER = gql`
 `;
 
 export const GET_MAP_ACCOM = gql`
-    query GetMapAccom($id: ID!) {
-        mapAccom(id: $id) {
+    query GetMapAccom($id: ID!, $variationId: ID!) {
+        mapAccom(id: $id, variationId: $variationId) {
             name
             coordinates
         }
@@ -88,8 +89,8 @@ export const GET_MAP_ACCOM = gql`
 `;
 
 export const GET_MAP_ACTIVITIES = gql`
-    query GetMapActivities($id: ID!) {
-        mapActivities(id: $id) {
+    query GetMapActivities($id: ID!, $variationId: ID!) {
+        mapActivities(id: $id, variationId: $variationId) {
             name
             coordinates
         }
@@ -97,8 +98,8 @@ export const GET_MAP_ACTIVITIES = gql`
 `;
 
 export const GET_MAP_TRANSPORT = gql`
-    query GetMapTransport($id: ID!) {
-        mapTransport(id: $id) {
+    query GetMapTransport($id: ID!, $variationId: ID!) {
+        mapTransport(id: $id, variationId: $variationId) {
             name
             coordinates
         }

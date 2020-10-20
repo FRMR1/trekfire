@@ -9,13 +9,13 @@ class DirectionsAPI extends RESTDataSource {
 
     async getMapRoutes({ coordsArr }) {
         try {
+            console.log("getMaproutes FIRED!");
             const routesPromises = coordsArr.map((route) =>
                 this.get(
                     `driving/${route}?alternatives=true&geometries=geojson&steps=true&access_token=${process.env.NEXT_PUBLIC_MAPBOX_TOKEN}`
                 )
             );
             const routes = await Promise.all(routesPromises);
-
             return Array.isArray(routes)
                 ? routes.map((route) => this.mapRouteReducer(route))
                 : [];

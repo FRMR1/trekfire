@@ -41,14 +41,18 @@ class GAdventuresAPI extends RESTDataSource {
         return this.tourDossierReducer(response);
     }
 
-    async getItinerary({ itineraryID }) {
-        const response = await this.get(`itineraries/${itineraryID}`);
+    async getItinerary({ itineraryID, variationID }) {
+        const response = await this.get(
+            `itineraries/${itineraryID}/${variationID}`
+        );
         return this.itineraryReducer(response);
     }
 
-    async getMapAccom({ itineraryID }) {
+    async getMapAccom({ itineraryID, variationID }) {
         // Get array of all accommodation dossier IDs.
-        const itinerary = await this.get(`itineraries/${itineraryID}`);
+        const itinerary = await this.get(
+            `itineraries/${itineraryID}/${variationID}`
+        );
         const accomIDs = itinerary.days.flatMap((day) =>
             day.components
                 .filter((component) => component.type === "ACCOMMODATION")
@@ -76,9 +80,11 @@ class GAdventuresAPI extends RESTDataSource {
             : [];
     }
 
-    async getMapActivities({ itineraryID }) {
+    async getMapActivities({ itineraryID, variationID }) {
         // Get array of all activity place IDs.
-        const itinerary = await this.get(`itineraries/${itineraryID}`);
+        const itinerary = await this.get(
+            `itineraries/${itineraryID}/${variationID}`
+        );
         const activityLocationIDs = itinerary.days.flatMap((day) =>
             day.components
                 .filter((component) => component.type === "ACTIVITY")
@@ -107,9 +113,11 @@ class GAdventuresAPI extends RESTDataSource {
             : [];
     }
 
-    async getMapTransport({ itineraryID }) {
+    async getMapTransport({ itineraryID, variationID }) {
         // Get array of all transport place IDs.
-        const itinerary = await this.get(`itineraries/${itineraryID}`);
+        const itinerary = await this.get(
+            `itineraries/${itineraryID}/${variationID}`
+        );
         const transportPlaceIDs = itinerary.days.flatMap((day) =>
             day.components
                 .filter((component) => component.type === "TRANSPORT")

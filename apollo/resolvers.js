@@ -8,20 +8,28 @@ export const resolvers = {
                 tourID: id,
             });
         },
-        itinDossier: async (_, { id }, { dataSources }) => {
-            return dataSources.GAdventuresAPI.getItinerary({ itineraryID: id });
-        },
-        mapAccom: async (_, { id }, { dataSources }) => {
-            return dataSources.GAdventuresAPI.getMapAccom({ itineraryID: id });
-        },
-        mapActivities: async (_, { id }, { dataSources }) => {
-            return dataSources.GAdventuresAPI.getMapActivities({
+        itinDossier: async (_, { id, variationId }, { dataSources }) => {
+            return dataSources.GAdventuresAPI.getItinerary({
                 itineraryID: id,
+                variationID: variationId,
             });
         },
-        mapTransport: async (_, { id }, { dataSources }) => {
+        mapAccom: async (_, { id, variationId }, { dataSources }) => {
+            return dataSources.GAdventuresAPI.getMapAccom({
+                itineraryID: id,
+                variationID: variationId,
+            });
+        },
+        mapActivities: async (_, { id, variationId }, { dataSources }) => {
+            return dataSources.GAdventuresAPI.getMapActivities({
+                itineraryID: id,
+                variationID: variationId,
+            });
+        },
+        mapTransport: async (_, { id, variationId }, { dataSources }) => {
             return dataSources.GAdventuresAPI.getMapTransport({
                 itineraryID: id,
+                variationID: variationId,
             });
         },
         mapRoutes: async (_, { coords }, { dataSources }) => {

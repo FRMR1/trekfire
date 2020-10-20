@@ -4,10 +4,10 @@ export const typeDefs = gql`
     type Query {
         tours: [Tour]!
         tourDossier(id: ID!): TourDossier
-        itinDossier(id: ID!): ItinDossier
-        mapAccom(id: ID!): [Location]
-        mapActivities(id: ID!): [Location]
-        mapTransport(id: ID!): [[Location]]
+        itinDossier(id: ID!, variationId: ID!): ItinDossier
+        mapAccom(id: ID!, variationId: ID!): [Location]
+        mapActivities(id: ID!, variationId: ID!): [Location]
+        mapTransport(id: ID!, variationId: ID!): [[Location]]
         mapRoutes(coords: [String]): [Routes]
     }
     type Tour {

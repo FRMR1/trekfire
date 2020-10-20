@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import { initializeApollo } from "../../apollo/client";
 import NavBar from "../../widgets/NavBar";
 import { useRouter } from "next/router";
-import { useQuery } from "@apollo/client";
+import { useQuery, useLazyQuery } from "@apollo/client";
 import {
     GET_TOURS,
     GET_TOUR_DOSSIER,
@@ -20,7 +21,10 @@ const Tour = () => {
         variables: { id: router.query.id },
     });
 
-    const itinVars = { id: tourDossier.data?.tourDossier.itinerary[0].id };
+    const itinVars = {
+        id: tourDossier.data?.tourDossier.itinerary[0].id,
+        variationId: tourDossier.data?.tourDossier.itinerary[0].variationId,
+    };
     const skipItin = itinVars === undefined;
     const itinDossier = useQuery(GET_ITIN_DOSSIER, {
         variables: itinVars,
@@ -53,15 +57,25 @@ const Tour = () => {
                 )
                 .substring(1)
         );
+
     const routesVars = { coords };
-    const skipRoutes = routesVars === undefined;
-    const mapRoutes = useQuery(
-        GET_MAP_ROUTES,
-        {
-            variables: routesVars,
-        },
-        skipRoutes
-    );
+    const [getMapRoutes, mapRoutes] = useLazyQuery(GET_MAP_ROUTES, {
+        variables: routesVars,
+    });
+
+    useEffect(() => {
+        // if tour dossier is updated, set mapRoutes.called to 'false'
+        // to refetch map routes
+        mapRoutes.called === false;
+    }, [tourDossier]);
+
+    useEffect(() => {
+        // only fetch map routes if the query has not already been called
+        // and the coordinates have been fetched
+        if (!mapRoutes.called && coords) {
+            getMapRoutes();
+        }
+    }, [coords]);
 
     return (
         <div>
@@ -107,7 +121,10 @@ export async function getStaticProps({ params }) {
         variables: tourVars,
     });
 
-    const itinVars = { id: tourDossier.data.tourDossier.itinerary[0].id };
+    const itinVars = {
+        id: tourDossier.data.tourDossier.itinerary[0].id,
+        variationId: tourDossier.data.tourDossier.itinerary[0].variationId,
+    };
 
     await apolloClient.query({
         query: GET_ITIN_DOSSIER,
@@ -131,20 +148,20 @@ export async function getStaticProps({ params }) {
 
     // Parse mapTransport array to coordinate string which can be consumed
     // by Mapbox Directions API.
-    const coords = mapTransport.data.mapTransport.map((route) =>
-        route
-            .reduce(
-                (str, place) =>
-                    `${str};${place.coordinates[0]},${place.coordinates[1]}`,
-                ""
-            )
-            .substring(1)
-    );
-    const routesVars = { coords };
-    await apolloClient.query({
-        query: GET_MAP_ROUTES,
-        variables: routesVars,
-    });
+    // const coords = mapTransport.data.mapTransport.map((route) =>
+    //     route
+    //         .reduce(
+    //             (str, place) =>
+    //                 `${str};${place.coordinates[0]},${place.coordinates[1]}`,
+    //             ""
+    //         )
+    //         .substring(1)
+    // );
+    // const routesVars = { coords };
+    // await apolloClient.query({
+    //     query: GET_MAP_ROUTES,
+    //     variables: routesVars,
+    // });
 
     // Pass tour and itinerary data to the page via props.
     return {
