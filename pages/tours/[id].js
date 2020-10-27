@@ -146,23 +146,6 @@ export async function getStaticProps({ params }) {
         variables: itinVars,
     });
 
-    // Parse mapTransport array to coordinate string which can be consumed
-    // by Mapbox Directions API.
-    // const coords = mapTransport.data.mapTransport.map((route) =>
-    //     route
-    //         .reduce(
-    //             (str, place) =>
-    //                 `${str};${place.coordinates[0]},${place.coordinates[1]}`,
-    //             ""
-    //         )
-    //         .substring(1)
-    // );
-    // const routesVars = { coords };
-    // await apolloClient.query({
-    //     query: GET_MAP_ROUTES,
-    //     variables: routesVars,
-    // });
-
     // Pass tour and itinerary data to the page via props.
     return {
         props: {

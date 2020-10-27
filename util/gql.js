@@ -39,6 +39,7 @@ export const GET_TOUR_DOSSIER = gql`
             }
             startCity
             endCity
+            bookings
         }
     }
 `;

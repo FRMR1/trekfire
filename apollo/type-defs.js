@@ -26,6 +26,7 @@ export const typeDefs = gql`
         itinerary: [Itinerary]
         startCity: String
         endCity: String
+        bookings: String
     }
     type Itinerary {
         id: String!

@@ -70,10 +70,10 @@ class GAdventuresAPI extends RESTDataSource {
             .map((accom) => accom.location.id);
 
         // Return array of all accommodation coordinates.
-        const accomPlacesPromises = placeIDs.map((id) =>
-            this.get(`places/${id}`)
-        );
-        const accomPlaces = await Promise.all(accomPlacesPromises);
+        const accomPlaces = [];
+        for (const id of placeIDs) {
+            accomPlaces.push(await this.get(`places/${id}`));
+        }
 
         return Array.isArray(accomPlaces)
             ? accomPlaces.map((place) => this.mapAccomReducer(place))
@@ -93,10 +93,10 @@ class GAdventuresAPI extends RESTDataSource {
         );
 
         // Return array of all activity coordinates.
-        const activityPlacesPromises = activityLocationIDs.map((id) =>
-            this.get(`places/${id}`)
-        );
-        const activityPlaces = await Promise.all(activityPlacesPromises);
+        const activityPlaces = [];
+        for (const id of activityLocationIDs) {
+            activityPlaces.push(await this.get(`places/${id}`));
+        }
 
         // Filter out any invalid coordinate values which would cause
         // Mapbox Directions API to err.
@@ -132,14 +132,16 @@ class GAdventuresAPI extends RESTDataSource {
         );
 
         // Return array of all transport coordinates.
-        const transportPlacesPromises = transportPlaceIDs.map((route) =>
-            route.map((id) => this.get(`places/${id}`))
-        );
-        const transportPlaces = await Promise.all(
-            transportPlacesPromises.map(
-                async (route) => await Promise.all(route)
-            )
-        );
+        const transportPlaces = [];
+        for (let i = 0; i < transportPlaceIDs.length; i++) {
+            transportPlaces.push([]);
+            for (let j = 0; j < transportPlaceIDs[i].length; j++) {
+                transportPlaces[i].push(
+                    await this.get(`places/${transportPlaceIDs[i][j]}`)
+                );
+            }
+        }
+
         // Filter out invalid coodinate values.
         const transportCoordinates = transportPlaces.filter(
             (route) =>
@@ -199,6 +201,7 @@ class GAdventuresAPI extends RESTDataSource {
             })),
             startCity: tour.geography.start_city.name,
             endCity: tour.geography.finish_city.name,
+            bookings: tour.site_links[2].href,
         };
     }
 

@@ -42,7 +42,18 @@ const Map = (props) => {
                     .filter((location) => location)
                     .map((location) => location.coordinates)
             );
-            transportRoutes.forEach((location) => {
+            const accomMarkers = props.mapAccom.map(
+                (marker) => marker.coordinates
+            );
+            const activityMarkers = props.mapActivities.map(
+                (marker) => marker.coordinates
+            );
+            const mapItems = [
+                ...transportRoutes,
+                ...accomMarkers,
+                ...activityMarkers,
+            ];
+            mapItems.forEach((location) => {
                 mapBounds.extend(location);
             });
             map.current.fitBounds(mapBounds, {
@@ -61,16 +72,15 @@ const Map = (props) => {
                 zoom: 12,
             });
         };
-
-        // Check if there are map routes to create map bounds, if not,
-        // fly to first activity location. (some one-day tours only have
-        // one activity location and no transport routes)
-        if (props.mapTransport && props.mapTransport.length) {
+        // Check if there are map items to create map bounds, if not,
+        // render blank map.
+        if (
+            props.mapTransport?.length ||
+            props.mapAccom?.length ||
+            props.mapActivities?.length
+        ) {
             renderMap();
             setMapBounds();
-        } else if (props.mapActivites && !props.mapTransport.length) {
-            renderMap();
-            flyToActivityLocation();
         } else {
             renderMap();
         }

@@ -5,6 +5,8 @@ const light = {
     navBarShadow: "0 2px 10px rgb(0, 0, 0, 0.1)",
     loadingBg: "#eee",
     loadingBgImg: "linear-gradient(90deg, #eee 0px, #ddd 200px, #eee 400px)",
+    bookingsLink: "#eee",
+    bookingsLinkHover: "#ddd",
 };
 
 const dark = {
@@ -20,6 +22,8 @@ const dark = {
     categoryTitle: "#6F6F6F",
     imgFilter: "grayscale(100%)",
     loadingBg: "#262626",
+    bookingsLink: "#262626",
+    bookingsLinkHover: "#292929",
     loadingBgImg:
         "linear-gradient(90deg, #262626 0px, #303030 200px, #262626 400px)",
 };
