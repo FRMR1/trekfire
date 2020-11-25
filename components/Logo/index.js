@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
+import MediaQuery from "react-responsive";
 
 const LogoContainer = styled.div`
     margin-left: 20px;
@@ -20,7 +21,20 @@ const Logo = () => {
         <LogoContainer>
             <Link href="/">
                 <a>
-                    <img src="/images/logo.svg" alt="Trekfire" width="120" />
+                    <MediaQuery query="(min-width: 1024px)">
+                        <img
+                            src="/images/logo.svg"
+                            alt="Tripwire"
+                            width="110"
+                        />
+                    </MediaQuery>
+                    <MediaQuery query="(max-width: 1023px)">
+                        <img
+                            src="/images/logo-mobile.svg"
+                            alt="Tripwire"
+                            width="40"
+                        />
+                    </MediaQuery>
                 </a>
             </Link>
         </LogoContainer>

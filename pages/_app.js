@@ -13,7 +13,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 export const LoadingContext = createContext(false);
 
-class Trekfire extends App {
+class Tripwire extends App {
     state = {
         isLoading: false,
     };
@@ -43,7 +43,7 @@ class Trekfire extends App {
         return (
             <>
                 <Head>
-                    <title>Trekfire</title>
+                    <title>Tripwire</title>
                     <link rel="icon" href="/favicon.ico" />
                 </Head>
                 <ApolloProvider client={this.props.apolloClient}>
@@ -65,4 +65,4 @@ class Trekfire extends App {
     }
 }
 
-export default withUseApollo(withRouter(Trekfire));
+export default withUseApollo(withRouter(Tripwire));
