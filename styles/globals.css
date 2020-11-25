@@ -460,7 +460,7 @@ body.dark-mode .navbar .react-autosuggest__suggestion--highlighted {
     border-bottom-right-radius: 25px;
     z-index: 2;
     overflow-y: auto;
-    max-height: 40vh;
+    max-height: 30vh;
     box-shadow: 0 6px 6px rgb(0, 0, 0, 0.2);
 }
 
@@ -517,16 +517,16 @@ body.dark-mode .navbar .react-autosuggest__suggestion--highlighted {
 }
 
 .reactToggle.react-toggle--focus .react-toggle-thumb {
-    -webkit-box-shadow: 0px 0px 3px 2px #333;
-    -moz-box-shadow: 0px 0px 3px 2px #333;
-    box-shadow: 0px 0px 2px 3px #333;
+    -webkit-box-shadow: 0px 0px 3px 2px #ff5c6e;
+    -moz-box-shadow: 0px 0px 3px 2px #ff5c6e;
+    box-shadow: 0px 0px 2px 3px #ff5c6e;
 }
 
 .reactToggle.react-toggle:active:not(.react-toggle--disabled)
     .react-toggle-thumb {
-    -webkit-box-shadow: 0px 0px 5px 5px #333;
-    -moz-box-shadow: 0px 0px 5px 5px #333;
-    box-shadow: 0px 0px 5px 5px #333;
+    -webkit-box-shadow: 0px 0px 5px 5px #ff5c6e;
+    -moz-box-shadow: 0px 0px 5px 5px #ff5c6e;
+    box-shadow: 0px 0px 5px 5px #ff5c6e;
 }
 
 .reactToggle .react-toggle-track-x {

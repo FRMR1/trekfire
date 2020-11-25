@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import HomeNav from "../widgets/HomeNav";
 import Logo from "../components/Logo";
 
 const HomeContainer = styled.div`
@@ -34,6 +35,7 @@ export default function Custom404() {
             <LogoContainer>
                 <Logo />
             </LogoContainer>
+            <HomeNav />
             <SubContainer>
                 <Heading404>404: Page not found</Heading404>
             </SubContainer>

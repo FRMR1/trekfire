@@ -1,7 +1,9 @@
 import { useContext } from "react";
 import { useQuery } from "@apollo/client";
+import Link from "next/link";
 import styled from "styled-components";
 import Search from "../components/Search";
+import HomeNav from "../widgets/HomeNav";
 import { GET_TOURS } from "../util/gql";
 import Logo from "../components/Logo";
 import { Context } from "../context/context";
@@ -37,6 +39,10 @@ const HomeH2 = styled.h2`
     font-family: "NeoTech";
 `;
 
+const Nav = styled.div`
+    float: right;
+`;
+
 const Home = (props) => {
     const { data, loading, error } = useQuery(GET_TOURS);
     const { tours, setTours } = useContext(Context);
@@ -52,6 +58,7 @@ const Home = (props) => {
             <LogoContainer>
                 <Logo />
             </LogoContainer>
+            <HomeNav />
             <SubContainer>
                 <HomeH2>Your next adventure begins here.</HomeH2>
                 <SearchBar
