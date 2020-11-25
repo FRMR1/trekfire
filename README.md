@@ -1,4 +1,4 @@
-# Tripwire
+<img src="https://github.com/FRMR1/tripwire/blob/master/public/images/logo.svg" width="250">
 
 ## Summary
 
@@ -15,8 +15,6 @@ Tripwire is an open-source project which uses [G Adventures API](https://develop
 
 ---
 
-## Support
+## Contact
 
-Reach out to me at:
-
--   Twitter: <a href="http://twitter.com/frmr_" target="_blank">`@frmr_`</a>
+<a href="http://twitter.com/frmr_" target="_blank">`@frmr_`</a>
